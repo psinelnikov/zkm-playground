@@ -28,13 +28,16 @@ export const Panel = () => {
     e.preventDefault();
     try {
       setIsGenerating(true);
-      const response = await fetch("http://45.32.107.82:8888/generateProof", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ num: inputNum }),
-      });
+      const response = await fetch(
+        "https://playgroundapi.zkm.io/generateProof",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ num: inputNum }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to connect backend server");
       }
