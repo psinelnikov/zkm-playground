@@ -12,7 +12,7 @@ export default function Home() {
       <QueryClientProvider client={queryClient}>
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
           <div className="z-10 w-full flex flex-col max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-            <WalletConnectButton />
+            {/* <WalletConnectButton /> */}
             <Panel />
           </div>
         </main>

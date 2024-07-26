@@ -11,10 +11,9 @@ import {
 } from "wagmi";
 import { getTransaction } from "@wagmi/core";
 import { config } from "@/app/config";
-
 import ProgressBar from "@/components/progressbar";
-import { Code } from "./code";
-export const Panel = () => {
+
+export const Code = () => {
   const { address, isConnected } = useAccount();
   const { data: hash, writeContract, isPending } = useWriteContract({ config });
   const [inputNum, setInputNum] = useState(10);
@@ -155,5 +154,60 @@ export const Panel = () => {
     };
   }, []);
 
-  return <Code></Code>;
+  return (
+    <div className="flex flex-col w-full">
+      <div className="flex flex-row items-center">
+        <iframe
+          height="450px"
+          src="https://onecompiler.com/embed/go/42khdvys4?hideLanguageSelection=true&hideNew=true&theme=dark&codeChangeEvent=true"
+          width="100%"
+        ></iframe>
+      </div>
+      <div className="flex flex-row items-center mx-auto">
+        {isGenerating && <Loading />}
+        {!isGenerating && (
+          <button
+            type="button"
+            className="text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 disabled:bg-gray-50 disabled:text-slate-500"
+            disabled={code.length === 0}
+            onClick={(e) => clickGenerateProof(e)}
+          >
+            Generate Proof
+          </button>
+        )}
+      </div>
+
+      <div className="flex flex-row items-center w-full">
+        <ProgressBar duration={100} isStart={isGenerating} />
+      </div>
+
+      <div className="flex flex-row items-center mx-auto w-full">
+        <textarea
+          className="block p-2.5 w-full h-48 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          value={proof}
+          onChange={() => {}}
+        />
+      </div>
+
+      <div className="flex flex-col items-center mt-2">
+        {isShowSubmit && (
+          <button
+            type="button"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            onClick={(e) => clickSubmit(e)}
+          >
+            {isPending ? "Confirming..." : "Mint"}
+          </button>
+        )}
+        {hash && (
+          <div>
+            Transaction Hash:{" "}
+            <a target="_blank" href={"https://sepolia.etherscan.io/tx/" + hash}>
+              {hash}
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
