@@ -105,7 +105,7 @@ export const Panel = () => {
         functionName: "mintWithProof",
         args: [
           receiveAddr,
-          10000000000000,
+          1000000000000000000,
           uint256input,
           proofData,
           commitments,

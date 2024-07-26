@@ -8,7 +8,7 @@ let isProcessing = false;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://frontend-hdse.onrender.com",
+    origin: "https://playground.zkm.io",
   })
 );
 app.use(express.urlencoded({ extended: true }));
