@@ -28,16 +28,13 @@ export const Panel = () => {
     e.preventDefault();
     try {
       setIsGenerating(true);
-      const response = await fetch(
-        "https://zkm-playground.onrender.com/generateProof",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ num: inputNum }),
-        }
-      );
+      const response = await fetch("http://45.32.107.82:8888/generateProof", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ num: inputNum }),
+      });
       if (!response.ok) {
         throw new Error("Failed to connect backend server");
       }
@@ -184,9 +181,12 @@ export const Panel = () => {
             {isPending ? "Confirming..." : "Mint"}
           </button>
         )}
-        {hash && <div>Transaction Hash: {hash}</div>}
-        {isConfirming && <div>Waiting for confirmation...</div>}
-        {isConfirmed && <div>Transaction confirmed.</div>}
+        {hash && (
+          <div>
+            Transaction Hash:{" "}
+            <a href={"https://sepolia.etherscan.io/tx/" + hash}>{hash}</a>
+          </div>
+        )}
       </div>
     </div>
   );
