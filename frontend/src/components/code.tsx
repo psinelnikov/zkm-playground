@@ -143,7 +143,7 @@ export const Code = () => {
 
   useEffect(() => {
     window.onmessage = function (e) {
-      if (e.data.result?.success) {
+      if (e.data?.action === "runComplete" && e.data?.result?.success) {
         console.log(e.data);
 
         setCode(e.data.files[0].content);
@@ -163,13 +163,14 @@ export const Code = () => {
           width="100%"
         ></iframe>
       </div>
+
       <div className="flex flex-row items-center mx-auto">
         {isGenerating && <Loading />}
         {!isGenerating && (
           <button
             type="button"
             className="text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 disabled:bg-gray-50 disabled:text-slate-500"
-            disabled={code.length === 0}
+            disabled={code.length == 0}
             onClick={(e) => clickGenerateProof(e)}
           >
             Generate Proof
@@ -187,26 +188,6 @@ export const Code = () => {
           value={proof}
           onChange={() => {}}
         />
-      </div>
-
-      <div className="flex flex-col items-center mt-2">
-        {isShowSubmit && (
-          <button
-            type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            onClick={(e) => clickSubmit(e)}
-          >
-            {isPending ? "Confirming..." : "Mint"}
-          </button>
-        )}
-        {hash && (
-          <div>
-            Transaction Hash:{" "}
-            <a target="_blank" href={"https://sepolia.etherscan.io/tx/" + hash}>
-              {hash}
-            </a>
-          </div>
-        )}
       </div>
     </div>
   );
