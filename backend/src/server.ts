@@ -22,17 +22,11 @@ app.post("/generateProof", async (req, res) => {
     res.send("Service is Busy");
     return;
   }
-  const numberData = req.body;
-  const inputNum = numberData.num;
-  const num = parseInt(inputNum);
-  if (num > 0) {
-    isProcessing = true;
-    await generateProof(inputNum, res);
-    isProcessing = false;
-  } else {
-    isProcessing = false;
-    res.status(500).send("Invalid number");
-  }
+  const { code, input } = req.body;
+
+  isProcessing = true;
+  await generateProof(code, input, res);
+  isProcessing = false;
 });
 
 const portHttp = 8080;

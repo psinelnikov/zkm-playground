@@ -1,16 +1,12 @@
 import axios from "axios";
 const { exec } = require("child_process");
 
-export const generateProof = async (
-  programFile: string,
-  inputNum: number,
-  res: any
-) => {
-  const inputCommand = `${programFile} > program.go`;
+export const generateProof = async (code: string, input: any, res: any) => {
+  const inputCommand = `${code} > program.go`;
 
   const buildCommand = `GOOS=linux GOARCH=mips GOMIPS=softfloat go build program.go`;
 
-  const proverCommand = `cd ../zkm-prover && PRIVATE_KEY=a38fbe7ce4d4e14a9cef370f84d48bcaa0c4e313c41cdc7e969b402df8c2242f SEG_SIZE=65536 CA_CERT_PATH=./tools/certs/ca.pem ELF_PATH=../hello ARGS='${inputNum}' ENDPOINT=https://152.32.186.45:20002 RUST_LOG=info OUTPUT_DIR=/tmp/examples cargo run --example stage`;
+  const proverCommand = `cd ../zkm-prover && PRIVATE_KEY=a38fbe7ce4d4e14a9cef370f84d48bcaa0c4e313c41cdc7e969b402df8c2242f SEG_SIZE=65536 CA_CERT_PATH=./tools/certs/ca.pem ELF_PATH=../program ARGS='${input}' ENDPOINT=https://152.32.186.45:20002 RUST_LOG=info OUTPUT_DIR=/tmp/examples cargo run --example stage`;
 
   exec(inputCommand, async (error: any, stdout: any, stderr: any) => {
     if (error) {

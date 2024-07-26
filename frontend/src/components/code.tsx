@@ -16,7 +16,7 @@ import ProgressBar from "@/components/progressbar";
 export const Code = () => {
   const { address, isConnected } = useAccount();
   const { data: hash, writeContract, isPending } = useWriteContract({ config });
-  const [inputNum, setInputNum] = useState(10);
+  const [input, setInput] = useState(10);
   const [proof, setProof] = useState<string>("");
   const [burnTransaction, setBurnTransaction] = useState("");
   const [valueOfBurn, setValueOfBurn] = useState("0");
@@ -39,7 +39,7 @@ export const Code = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ num: valueOfBurn }),
+          body: JSON.stringify({ code, input }),
         }
       );
       if (!response.ok) {
