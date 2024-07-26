@@ -155,7 +155,7 @@ export const Code = () => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col">
       <div className="flex flex-row items-center">
         <iframe
           height="450px"
