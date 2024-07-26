@@ -16,7 +16,7 @@ import ProgressBar from "@/components/progressbar";
 export const Code = () => {
   const { address, isConnected } = useAccount();
   const { data: hash, writeContract, isPending } = useWriteContract({ config });
-  const [input, setInput] = useState(10);
+  const [input, setInput] = useState("");
   const [proof, setProof] = useState<string>("");
   const [burnTransaction, setBurnTransaction] = useState("");
   const [valueOfBurn, setValueOfBurn] = useState("0");
@@ -146,7 +146,9 @@ export const Code = () => {
       if (e.data?.action === "runComplete" && e.data?.result?.success) {
         console.log(e.data);
 
-        setCode(e.data.files[0].content);
+        const newCode = e.data.files[0].content.replace(/\\n/gm, "\\\\n");
+        setCode(newCode);
+        setInput(e.data.stdin);
         // handle the e.data which contains the code object
       } else {
         setCode("");
