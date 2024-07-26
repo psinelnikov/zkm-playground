@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon src/server.ts"
+    "start": "nodemon src/server.ts"
   },
   "dependencies": {
     "@types/node": "^20.14.8",
