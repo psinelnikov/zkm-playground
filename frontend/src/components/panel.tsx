@@ -132,7 +132,9 @@ export const Panel = () => {
       });
       const bigintConvert = burnValue.value;
 
-      setValueOfBurn(bigintConvert.toString());
+      if (burnValue.to === "0xdeaddeaddeaddeaddeaddeaddeaddeaddeaddead") {
+        setValueOfBurn(bigintConvert.toString());
+      }
     };
 
     fetchTransactionValue();
