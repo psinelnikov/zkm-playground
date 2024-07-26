@@ -1,5 +1,5 @@
 "use client";
-import { Code } from "./code";
+import { GoCode } from "./code";
 
 export const Panel = () => {
   return (
@@ -8,7 +8,7 @@ export const Panel = () => {
         <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Playground Demo
         </h1>
-        <Code />
+        <GoCode />
       </div>
     </div>
   );

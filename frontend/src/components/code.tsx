@@ -12,8 +12,9 @@ import {
 import { getTransaction } from "@wagmi/core";
 import { config } from "@/app/config";
 import ProgressBar from "@/components/progressbar";
+import { Go } from "./languages/go";
 
-export const Code = () => {
+export const GoCode = () => {
   const { address, isConnected } = useAccount();
   const { data: hash, writeContract, isPending } = useWriteContract({ config });
   const [input, setInput] = useState("");
@@ -148,7 +149,7 @@ export const Code = () => {
         setCode(newCode);
         setInput(e.data.stdin);
         // handle the e.data which contains the code object
-      } else if (!e.data?.result?.success) {
+      } else if (e.data?.action === "runComplete" && !e.data?.result?.success) {
         setCode("");
       }
     };
@@ -157,11 +158,7 @@ export const Code = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center">
-        <iframe
-          height="450px"
-          src="https://onecompiler.com/embed/go/42khdvys4?hideLanguageSelection=true&hideNew=true&theme=dark&codeChangeEvent=true"
-          width="100%"
-        ></iframe>
+        <Go />
       </div>
 
       <div className="flex flex-row items-center mx-auto">
