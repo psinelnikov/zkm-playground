@@ -144,13 +144,11 @@ export const Code = () => {
   useEffect(() => {
     window.onmessage = function (e) {
       if (e.data?.action === "runComplete" && e.data?.result?.success) {
-        console.log(e.data);
-
         const newCode = e.data.files[0].content.replace(/\\n/gm, "\\\\n");
         setCode(newCode);
         setInput(e.data.stdin);
         // handle the e.data which contains the code object
-      } else {
+      } else if (!e.data?.result?.success) {
         setCode("");
       }
     };
