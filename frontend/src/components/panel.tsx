@@ -155,9 +155,7 @@ export const Panel = () => {
         <ProgressBar duration={100} isStart={isGenerating} />
       </div>
       <div className="flex flex-row items-center w-full my-2">
-        <label className="block text-gray-700 text-sm font-bold">
-          Receive Address
-        </label>
+        <label className="block text-sm font-bold">Receive Address</label>
         <input
           type="text"
           className="mr-2 g-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -187,7 +185,9 @@ export const Panel = () => {
         {hash && (
           <div>
             Transaction Hash:{" "}
-            <a href={"https://sepolia.etherscan.io/tx/" + hash}>{hash}</a>
+            <a target="_blank" href={"https://sepolia.etherscan.io/tx/" + hash}>
+              {hash}
+            </a>
           </div>
         )}
       </div>
