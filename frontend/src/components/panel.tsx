@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loading } from "@/components/loading";
 import { utils } from "web3";
 import verifierAbi from "@/abi/verifier.abi.json";
@@ -9,6 +9,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
 } from "wagmi";
+import { getTransaction } from "@wagmi/core";
 import { config } from "@/app/config";
 
 import ProgressBar from "@/components/progressbar";
@@ -17,6 +18,8 @@ export const Panel = () => {
   const { data: hash, writeContract, isPending } = useWriteContract({ config });
   const [inputNum, setInputNum] = useState(10);
   const [proof, setProof] = useState<string>("");
+  const [burnTransaction, setBurnTransaction] = useState("");
+  const [valueOfBurn, setValueOfBurn] = useState("0");
   const [receiveAddr, setReceiveAddr] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isShowSubmit, setIsShowSubmit] = useState(false);
@@ -35,7 +38,7 @@ export const Panel = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ num: inputNum }),
+          body: JSON.stringify({ num: valueOfBurn }),
         }
       );
       if (!response.ok) {
@@ -103,13 +106,7 @@ export const Panel = () => {
         abi: mytokenAbi,
         address: "0x676a5ad5960d08bcd3ec83f8c086b76f33aa921b",
         functionName: "mintWithProof",
-        args: [
-          receiveAddr,
-          1000000000000000000,
-          uint256input,
-          proofData,
-          commitments,
-        ],
+        args: [receiveAddr, valueOfBurn, uint256input, proofData, commitments],
       });
       // const verifierContract = new Contract(verifierAbi, "0x2fdDe9155f43eD6784557AF35b7710d8bFE91B15");
       // const token = new Contract(mytokenAbi, "0x676a5ad5960d08bcd3ec83f8c086b76f33aa921b");
@@ -126,6 +123,20 @@ export const Panel = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const fetchTransactionValue = async () => {
+      const burnValue = await getTransaction(config, {
+        chainId: 1,
+        hash: burnTransaction as `0x${string}`,
+      });
+      const bigintConvert = burnValue.value;
+
+      setValueOfBurn(bigintConvert.toString());
+    };
+
+    fetchTransactionValue();
+  }, [burnTransaction]);
   return (
     <div className="flex flex-col items-center mx-auto w-96">
       <div className="flex flex-row items-center mx-auto">
@@ -153,6 +164,24 @@ export const Panel = () => {
       </div>
       <div className="flex flex-row items-center w-full">
         <ProgressBar duration={100} isStart={isGenerating} />
+      </div>
+      <div className="flex flex-row items-center w-full my-2">
+        <label className="block text-sm font-bold mr-5">Burn Transaction</label>
+        <input
+          type="text"
+          className="mr-2 g-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          onChange={(e) => {
+            setBurnTransaction(e.target.value);
+          }}
+        />
+      </div>
+      <div className="flex flex-row items-center w-full my-2">
+        <label className="block text-sm font-bold mr-5">Value</label>
+        <input
+          value={valueOfBurn}
+          type="number"
+          className="mr-2 g-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
       </div>
       <div className="flex flex-row items-center w-full my-2">
         <label className="block text-sm font-bold">Receive Address</label>
