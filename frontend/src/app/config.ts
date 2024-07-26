@@ -1,5 +1,5 @@
 import { http, createConfig } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { sepolia } from "wagmi/chains";
 import { metaMask, injected } from "wagmi/connectors";
 const MetaMaskOptions = {
   dappMetadata: {
@@ -10,11 +10,10 @@ const MetaMaskOptions = {
 };
 
 export const config = createConfig({
-  chains: [sepolia, mainnet],
+  chains: [sepolia],
   ssr: false,
   connectors: [metaMask(MetaMaskOptions), injected()],
   transports: {
     [sepolia.id]: http(),
-    [mainnet.id]: http(),
   },
 });
