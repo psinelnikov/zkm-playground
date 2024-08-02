@@ -6,6 +6,7 @@ import { twilight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 
 const InputHandling = `
+
 // Parse command-line flags and retrieve input
 flag.Parse()
 input := GetInput(flag.Args(), os.Stdin)
