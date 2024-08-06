@@ -43,7 +43,7 @@ export const NavBar = ({
                 Golang
               </button>
             </li>
-            <li>
+            {/* <li>
               <button
                 className="block py-2 rounded hover:bg-transparent border-0 hover:text-blue-700 p-0 "
                 style={{
@@ -53,7 +53,7 @@ export const NavBar = ({
               >
                 Rust
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

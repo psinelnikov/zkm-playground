@@ -4,6 +4,7 @@ import { switchChain } from "@wagmi/core";
 import { sepolia } from "@wagmi/core/chains";
 import { config } from "@/app/config";
 import { useEffect } from "react";
+import { getConnections } from "wagmi/actions";
 
 const WalletConnectButton = () => {
   const { connect, connectors } = useConnect();
@@ -19,7 +20,11 @@ const WalletConnectButton = () => {
 
   useEffect(() => {
     const switchToSepolia = async () => {
-      await switchChain(config, { chainId: sepolia.id });
+      const connections = getConnections(config);
+      await switchChain(config, {
+        chainId: sepolia.id,
+        connector: connections[0]?.connector,
+      });
     };
 
     if (isConnected) {
@@ -41,7 +46,7 @@ const WalletConnectButton = () => {
     );
   }
   return (
-    <div>
+    <>
       {metaMaskConnector && (
         <button
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
@@ -58,7 +63,7 @@ const WalletConnectButton = () => {
           {rabbyConnector.name}
         </button>
       )}
-    </div>
+    </>
   );
 };
 export default WalletConnectButton;

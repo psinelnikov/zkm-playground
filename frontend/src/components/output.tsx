@@ -27,7 +27,7 @@ export const Output = ({
   // }, [burnTransaction]);
 
   return (
-    <div className="h-96 overflow-scroll pb-0">
+    <div className="h-96 overflow-scroll w-full">
       <SyntaxHighlighter language={language} style={twilight} wrapLongLines>
         {text}
       </SyntaxHighlighter>

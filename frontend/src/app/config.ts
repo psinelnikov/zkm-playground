@@ -1,18 +1,11 @@
+import { createClient } from "viem";
 import { http, createConfig } from "wagmi";
 import { sepolia } from "wagmi/chains";
-import { metaMask, injected } from "wagmi/connectors";
-const MetaMaskOptions = {
-  dappMetadata: {
-    name: "Mint Prove",
-  },
-  infuraAPIKey: "YOUR-API-KEY",
-  // Other options.
-};
+import { injected } from "wagmi/connectors";
 
 export const config = createConfig({
   chains: [sepolia],
-  ssr: false,
-  connectors: [metaMask(MetaMaskOptions), injected()],
+  connectors: [injected()],
   transports: {
     [sepolia.id]: http(),
   },
