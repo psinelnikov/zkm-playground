@@ -8,6 +8,8 @@ import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { config } from "./config";
 import { Pagination } from "@/components/pagination";
+import { LanguageContext } from "./context";
+import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,20 +25,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [language, setLanguage] = useState("golang");
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <html lang="en">
-          <body className={inter.className}>
-            <NavBar />
-            <main className="flex flex-col items-center mt-10 mx-24">
-              <div className="w-full flex flex-col items-center font-mono text-sm ">
-                {children}
-                <Pagination />
-              </div>
-            </main>
-          </body>
-        </html>
+        <LanguageContext.Provider value={language}>
+          <html lang="en">
+            <body className={inter.className}>
+              <NavBar setLanguage={setLanguage} />
+              <main className="flex flex-col items-center mt-10 mx-24">
+                <div className="w-full flex flex-col items-center font-mono text-sm ">
+                  {children}
+                  <Pagination />
+                </div>
+              </main>
+            </body>
+          </html>
+        </LanguageContext.Provider>
       </QueryClientProvider>
     </WagmiProvider>
   );

@@ -1,48 +1,38 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Loading } from "@/components/loading";
-import { utils } from "web3";
-import verifierAbi from "@/abi/verifier.abi.json";
-import mytokenAbi from "@/abi/mytoken.abi.json";
-import {
-  useAccount,
-  useWriteContract,
-  useWaitForTransactionReceipt,
-} from "wagmi";
-import { getTransaction } from "@wagmi/core";
-import { config } from "@/app/config";
 import ProgressBar from "@/components/progressbar";
 import { Go } from "./languages/go";
+import { LanguageContext } from "@/app/context";
+import { Rust } from "./languages/rust";
 
 export const Editor = () => {
   const [input, setInput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isShowSubmit, setIsShowSubmit] = useState(false);
   const [code, setCode] = useState("");
+
+  const language = useContext(LanguageContext);
 
   const clickGenerateProof = async (e: any) => {
     e.preventDefault();
     try {
       setIsGenerating(true);
-      const response = await fetch(
-        "https://playgroundapi.zkm.io/generateProof",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ code, input }),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to connect backend server");
-      }
-      const retData = await response.text();
-      if (retData !== "false") {
-        setIsShowSubmit(true);
-      }
-      localStorage.setItem("proof", retData);
-      setIsGenerating(false);
+      // const response = await fetch(
+      //   "https://playgroundapi.zkm.io/generateProof",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ code, input }),
+      //   }
+      // );
+      // if (!response.ok) {
+      //   throw new Error("Failed to connect backend server");
+      // }
+      // const retData = await response.text();
+      // localStorage.setItem("proof", retData);
+      // setIsGenerating(false);
     } catch (error) {
       console.error(error);
       setIsGenerating(false);
@@ -64,26 +54,24 @@ export const Editor = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row items-center">
-        <Go />
+      <div className="flex items-center">
+        {language === "golang" ? <Go /> : <Rust />}
       </div>
 
-      <div className="flex flex-row items-center mx-auto mt-4">
-        {isGenerating && <Loading />}
-        {!isGenerating && (
-          <button
-            type="button"
-            className="text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 disabled:bg-gray-50 disabled:text-slate-500"
-            disabled={code.length == 0}
-            onClick={(e) => clickGenerateProof(e)}
-          >
-            Generate Proof
-          </button>
-        )}
-      </div>
+      <div className="flex items-center my-4">
+        <button
+          type="button"
+          className="w-52 text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-l-lg text-sm py-2.5 dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 disabled:bg-gray-300 disabled:text-slate-800"
+          disabled={code.length == 0 || isGenerating}
+          onClick={(e) => clickGenerateProof(e)}
+        >
+          Generate Proof
+        </button>
 
-      <div className="flex flex-row items-center w-full">
-        <ProgressBar duration={100} isStart={isGenerating} />
+        <div className="flex items-center w-full gap-4">
+          <ProgressBar duration={100} isStart={isGenerating} />
+          {isGenerating && <Loading />}
+        </div>
       </div>
     </div>
   );

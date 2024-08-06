@@ -41,7 +41,7 @@ export const Pagination = () => {
         </button>
       )}
 
-      {currentPageNum < 3 && (
+      {currentPageNum > 0 && currentPageNum < 4 && (
         <button
           onClick={() => {
             router.push(`/section/${currentPageNum + 1}`);

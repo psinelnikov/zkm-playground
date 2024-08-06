@@ -1,8 +1,10 @@
 "use client";
+import { SendTx } from "@/components/sendTx";
 import { Output } from "@/components/output";
+import WalletConnectButton from "@/components/walletConnection";
 import { useEffect, useState } from "react";
 
-export default function Section2() {
+export default function Section4() {
   const [formattedProof, setFormattedProof] = useState("");
 
   useEffect(() => {
@@ -17,12 +19,14 @@ export default function Section2() {
     <div className="flex w-full gap-4 flex-wrap">
       <div className="flex-1 ">
         <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          Using Inputs and Outputs
+          Verifying the Proof On Chain
         </h1>
-        <p>Using Inputs and Outputs</p>
+        <p>Verifying the Proof</p>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 ">
+        <WalletConnectButton />
         <Output text={formattedProof} language="json" />
+        <SendTx text="Mint Tokens" />
       </div>
     </div>
   );
