@@ -13,8 +13,8 @@ export const NavBar = ({
 
   const handleClick = (language: string) => {
     if (
-      (!isActive && language === "golang") ||
-      (isActive && language === "rust")
+      (!isActive && language === "rust") ||
+      (isActive && language === "golang")
     ) {
       setIsActive((current) => !current);
       setLanguage(language);
@@ -32,7 +32,7 @@ export const NavBar = ({
         </a>
         <div className="w-auto" id="navbar-default">
           <ul className="font-medium flex p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 flex-row space-x-8 mt-0 border-0 bg-white dark:bg-gray-800 dark:bg-gray-900 dark:border-gray-700">
-            <li>
+            {/* <li>
               <button
                 className="py-2 text-white bg-blue-700 rounded bg-transparent text-blue-700 p-0"
                 style={{
@@ -42,18 +42,18 @@ export const NavBar = ({
               >
                 Golang
               </button>
-            </li>
-            {/* <li>
+            </li> */}
+            <li>
               <button
                 className="block py-2 rounded hover:bg-transparent border-0 hover:text-blue-700 p-0 "
                 style={{
-                  color: !isActive ? "blue" : "grey",
+                  color: isActive ? "blue" : "grey",
                 }}
                 onClick={() => handleClick("rust")}
               >
                 Rust
               </button>
-            </li> */}
+            </li>
           </ul>
         </div>
       </div>

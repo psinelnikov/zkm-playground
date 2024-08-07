@@ -4,6 +4,7 @@ import { Output } from "@/components/output";
 import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { twilight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { sha256 } from "js-sha256";
 
 const InputHandling = `// Parse command-line flags and retrieve input
 flag.Parse()
@@ -46,17 +47,18 @@ export default function Section1() {
     <div className="flex w-full gap-4 flex-wrap">
       <div className="flex-1">
         <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          Hello World
+          Introduction
         </h1>
         <p className="my-2">
-          In this section, we will walk through a simple Hello World program
-          using ZKM.
+          In this section, we will walk through a simple program showcasing the
+          lifecycle of a proof generation process using ZKM.
         </p>
 
+        <h2 className="text-2xl">Proof Generation Overview</h2>
         <p className="my-2">
           There are 6 main steps in generating a program that utilizes a zkVM:
         </p>
-        <ol className="list-decimal list-inside">
+        <ol className="list-decimal list-inside my-2">
           <li>Writing a program</li>
           <li>Compiling the program using MIPS</li>
           <li>Running the program through a prover with inputs</li>
@@ -66,12 +68,61 @@ export default function Section1() {
           </li>
           <li>Posting the proof to the verifier contract</li>
         </ol>
-        {/* <p className="my-2">
-          The purpose of this code is to make handling inputs from stdin as well
-          as through arguments. This is to be able to have the values that are
-          put into the program used within the proof generation process. On your
-          custom developments, you won't need to include this conversion
-        </p> */}
+
+        <p className="my-2">
+          The code on the right shows a program accepting a sha256 hash and the
+          value that was generated from that hash. This program proves that the
+          user knows what the value of the corresponding hash is.
+        </p>
+        <h2 className="text-2xl">How the Program is Run</h2>
+        <p className="my-2">
+          The program is run as a &quot;guest&quot; program by the zkm
+          &quot;host&quot;. After successful execution of a guest program, the
+          host will produce a proof with the included information from the
+          guest. There are 3 main structures to write a guest program:
+        </p>
+        <ol className="list-decimal list-inside my-2">
+          <li>Getting Inputs</li>
+          <li>Evaluating a Result</li>
+          <li>Committing a Result to the Proof</li>
+        </ol>
+        <p className="my-2">
+          When you run the program by clicking on &quot;Generate Proof&quot; -
+          the input values get sent to the Prover Service and the proof
+          generation process occurs. This process takes roughly a minute to
+          complete. This proof will be run through this code as the guest
+          program:
+        </p>
+        <SyntaxHighlighter language="rust" style={twilight}>{`#![no_std]
+#![no_main]
+
+use sha2::{Digest, Sha256};
+extern crate alloc;
+use alloc::vec::Vec;
+
+zkm_runtime::entrypoint!(main);
+
+pub fn main() {
+    let public_input: Vec<u8> = zkm_runtime::io::read();
+    let input: Vec<u8> = zkm_runtime::io::read();
+
+    let mut hasher = Sha256::new();
+    hasher.update(input);
+    let result = hasher.finalize();
+
+    let output: [u8; 32] = result.into();
+    assert_eq!(output.to_vec(), public_input);
+
+    zkm_runtime::io::commit::<[u8; 32]>(&output);
+}`}</SyntaxHighlighter>
+        <p className="my-2">
+          You can change the values of the stdin and generate a proof using the
+          new values.
+        </p>
+        <p className="my-2">
+          A pre-generated proof is already included, so you do not have to wait
+          for the proof generation process to occur.
+        </p>
       </div>
 
       <div className="flex-1">
