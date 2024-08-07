@@ -32,7 +32,9 @@ export default function Section4() {
           This step will compare the hash of the inputs to the hash of the
           outputs
         </p>
-        <p className="my-2">e.g. sha256("hello") = {sha256("hello")}</p>
+        <p className="my-2">
+          e.g. sha256(&quot;hello&quot;) = {sha256("hello")}
+        </p>
         <p className="my-2">Calling the function</p>
         <SyntaxHighlighter
           language="solidity"

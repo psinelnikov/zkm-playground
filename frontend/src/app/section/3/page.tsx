@@ -433,8 +433,8 @@ contract ERC20Token is IERC20 {
         balances[to] += value;
     }`}</SyntaxHighlighter>
         <p className="my-2">
-          We can see that the "mintWithProof" function will call the "verifyTx"
-          function to determine if the proof is valid
+          We can see that the &quot;mintWithProof&quot; function will call the
+          &quot;verifyTx&quot; function to determine if the proof is valid
         </p>
         <SyntaxHighlighter
           language="solidity"
@@ -448,7 +448,8 @@ contract ERC20Token is IERC20 {
               }
           }`}</SyntaxHighlighter>
         <p className="my-2">
-          The "Verifier.sol" file is generated using "caller.go"
+          The &quot;Verifier.sol&quot; file is generated using
+          &quot;caller.go&quot;
           (https://github.com/zkMIPS/use-cases/blob/main/erc20/caller.go#L109)
         </p>
       </div>
