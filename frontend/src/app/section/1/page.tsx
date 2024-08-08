@@ -4,7 +4,7 @@ import { Output } from "@/components/output";
 import { useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { twilight } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { sha256 } from "js-sha256";
+import Sha256Input from "@/components/sha256Input";
 
 const InputHandling = `// Parse command-line flags and retrieve input
 flag.Parse()
@@ -119,6 +119,7 @@ pub fn main() {
           You can change the values of the stdin and generate a proof using the
           new values.
         </p>
+
         <p className="my-2">
           A pre-generated proof is already included, so you do not have to wait
           for the proof generation process to occur.
@@ -127,7 +128,9 @@ pub fn main() {
 
       <div className="flex-1">
         <Editor />
-        <Output text={formattedProof} language="json" />
+        <div className="my-2">
+          <Sha256Input />
+        </div>
       </div>
     </div>
   );

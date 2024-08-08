@@ -35,7 +35,7 @@ export default function Section4() {
         <p className="my-2">
           e.g. sha256(&quot;hello&quot;) = {sha256("hello")}
         </p>
-        <p className="my-2">Calling the function</p>
+
         <SyntaxHighlighter
           language="solidity"
           style={twilight}
@@ -46,10 +46,10 @@ export default function Section4() {
         balances[to] += value;
     }`}</SyntaxHighlighter>
         <p className="my-2">
-          Will compare the result of the function to the hash of the outputs, if
-          the proof passes and the hash of the value that the user provided is
-          the same as the hash of the output of the proof, then that transaction
-          is considered valid.
+          Calling the function &quot;mintWithProof&quot; will compare the result
+          of the function to the hash of the outputs, if the proof passes and
+          the hash of the value that the user provided is the same as the hash
+          of the output of the proof, then that transaction is considered valid.
         </p>
         <p className="my-2">
           You can try minting tokens using this pre-generated proof.

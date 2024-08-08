@@ -72,9 +72,10 @@ export const SendTx = ({ text }: { text: string }) => {
         b: { ...bPoint },
         c: { ...cPoint },
       };
+
       writeContract({
         abi: mytokenAbi,
-        address: "0x676a5ad5960d08bcd3ec83f8c086b76f33aa921b",
+        address: "0xD70128e085dD215F2f7a7678BD96A689b33acd5b",
         functionName: "mintWithProof",
         args: [
           address,
@@ -84,17 +85,6 @@ export const SendTx = ({ text }: { text: string }) => {
           commitments,
         ],
       });
-      // const verifierContract = new Contract(verifierAbi, "0x2fdDe9155f43eD6784557AF35b7710d8bFE91B15");
-      // const token = new Contract(mytokenAbi, "0x676a5ad5960d08bcd3ec83f8c086b76f33aa921b");
-      // token.methods.mintWithProof(receiveAddr, mintAmount, uint256input, proofData, commitments);
-      // verifierContract.setProvider("https://eth-sepolia.g.alchemy.com/v2/RH793ZL_pQkZb7KttcWcTlOjPrN0BjOW");
-      // const result = await verifierContract.methods.verify(uint256input, proofData, commitments).call();
-      // console.log(result);
-      // if (utils.toBigInt(result) === utils.toBigInt(0)){
-      //     window.alert(`Verified successfully`);
-      // }else{
-      //     window.alert(`Failed to verify`);
-      // }
     } catch (error) {
       console.error(error);
     }
@@ -105,7 +95,7 @@ export const SendTx = ({ text }: { text: string }) => {
       <button
         type="button"
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 focus:outline-none dark:focus:ring-blue-800 disabled:bg-gray-300 disabled:text-slate-800"
-        onClick={(e) => clickSubmit(e)}
+        onClick={clickSubmit}
         disabled={!isConnected || !proof}
       >
         {isPending ? "Confirming..." : text}
@@ -114,7 +104,10 @@ export const SendTx = ({ text }: { text: string }) => {
       {hash && (
         <div>
           Transaction Hash:{" "}
-          <a target="_blank" href={"https://sepolia.etherscan.io/tx/" + hash}>
+          <a
+            target="_blank"
+            href={"https://sepolia-explorer.metisdevops.link/tx/" + hash}
+          >
             {hash}
           </a>
         </div>

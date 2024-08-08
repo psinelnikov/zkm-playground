@@ -21,7 +21,7 @@ export default function Section2() {
         </h1>
         <h2 className="text-2xl">Proof Generation Process</h2>
         <p className="my-2">
-          The proof generation process has multiple steps. The process involves:
+          The proof generation process has multiple steps. This process:
         </p>
         <ol className="list-decimal list-inside my-2">
           <li>The program and trace are divided into segments</li>
@@ -44,10 +44,14 @@ export default function Section2() {
             Groth16 – The Groth16 proving system is used to enable on-chain
             computation by converting the proof to an EVM-friendly format. The
             continuation proof is converted into an on-chain Groth16
-            (SNARK-based) proof.{" "}
+            (SNARK-based) proof
           </li>
         </ol>
-        <h2 className="text-2xl">STARK Proof parameters</h2>
+        <p className="my-2">
+          As a result of this process, the Groth16 proof proves that the proof
+          generation process was correctly executed.
+        </p>
+        <h2 className="text-2xl">STARK Proof Parameters</h2>
         <p className="my-2">The Stark’s public input consists of 116 bytes:</p>
         <ul className="list-disc list-inside">
           <li>memory image before and after: 8 + 8 u32</li>
