@@ -448,9 +448,14 @@ contract ERC20Token is IERC20 {
               }
           }`}</SyntaxHighlighter>
         <p className="my-2">
-          The &quot;Verifier.sol&quot; file is generated using
-          &quot;caller.go&quot;
-          (https://github.com/zkMIPS/use-cases/blob/main/erc20/caller.go#L109)
+          The &quot;Verifier.sol&quot; file is generated using{" "}
+          <a
+            className="text-blue-500"
+            href="https://github.com/zkMIPS/use-cases/blob/main/erc20/caller.go#L109"
+            target="_blank"
+          >
+            caller.go
+          </a>
         </p>
       </div>
       <div className="flex-1">
