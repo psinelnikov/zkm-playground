@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const LanguageContext = createContext("golang");
+export const LanguageContext = createContext("go");

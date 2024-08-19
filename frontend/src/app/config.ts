@@ -30,3 +30,8 @@ export const config = createConfig({
     [metisSepolia.id]: http(),
   },
 });
+
+export enum Language {
+  RUST = "rust",
+  GO = "go",
+}

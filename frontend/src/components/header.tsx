@@ -3,6 +3,7 @@
 import Image from "next/image";
 import zkmLogo from "../../public/zkm-logo.svg";
 import { useState } from "react";
+import { Language } from "@/app/config";
 
 export const NavBar = ({
   setLanguage,
@@ -13,8 +14,8 @@ export const NavBar = ({
 
   const handleClick = (language: string) => {
     if (
-      (!isActive && language === "rust") ||
-      (isActive && language === "golang")
+      (!isActive && language === Language.RUST) ||
+      (isActive && language === Language.GO)
     ) {
       setIsActive((current) => !current);
       setLanguage(language);
@@ -32,17 +33,17 @@ export const NavBar = ({
         </a>
         <div className="w-auto" id="navbar-default">
           <ul className="font-medium flex p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 flex-row space-x-8 mt-0 border-0 bg-white dark:bg-gray-800 dark:bg-gray-900 dark:border-gray-700">
-            {/* <li>
+            <li>
               <button
                 className="py-2 text-white bg-blue-700 rounded bg-transparent text-blue-700 p-0"
                 style={{
-                  color: isActive ? "blue" : "grey",
+                  color: isActive ? "grey" : "blue",
                 }}
-                onClick={() => handleClick("golang")}
+                onClick={() => handleClick("go")}
               >
                 Golang
               </button>
-            </li> */}
+            </li>
             <li>
               <button
                 className="block py-2 rounded hover:bg-transparent border-0 hover:text-blue-700 p-0 "

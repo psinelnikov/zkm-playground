@@ -1,32 +1,89 @@
 "use client";
 import { Editor } from "@/components/editor";
 import { Output } from "@/components/output";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { twilight } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Sha256Input from "@/components/sha256Input";
+import { LanguageContext } from "@/app/context";
+import { Language } from "@/app/config";
 
-const InputHandling = `// Parse command-line flags and retrieve input
-flag.Parse()
-input := GetInput(flag.Args(), os.Stdin)
-`;
+const rust = `#![no_std]
+#![no_main]
 
-const IteratingOverInput = `// Iterate over each input value
-for input.Scan() {
-    arg := input.Text()
-    fmt.Printf(arg)
-    // ...do something with arg (e.g., process zkMIPS instructions)
+use sha2::{Digest, Sha256};
+extern crate alloc;
+use alloc::vec::Vec;
+
+zkm_runtime::entrypoint!(main);
+
+pub fn main() {
+    let public_input: Vec<u8> = zkm_runtime::io::read();
+    let input: Vec<u8> = zkm_runtime::io::read();
+
+    let mut hasher = Sha256::new();
+    hasher.update(input);
+    let result = hasher.finalize();
+
+    let output: [u8; 32] = result.into();
+    assert_eq!(output.to_vec(), public_input);
+
+    zkm_runtime::io::commit::<[u8; 32]>(&output);
+}`;
+
+const go = `package main
+
+import "github.com/zkMIPS/zkm/go-runtime/zkm_runtime"
+
+type DataId uint32
+
+// use iota to create enum
+const (
+	TYPE1 DataId = iota
+	TYPE2
+	TYPE3
+)
+
+type Data struct {
+	Input1  [10]byte
+	Input2  uint8
+	Input3  int8
+	Input4  uint16
+	Input5  int16
+	Input6  uint32
+	Input7  int32
+	Input8  uint64
+	Input9  int64
+	Input10 []byte
+	Input11 DataId
+	Input12 string
 }
-`;
 
-const ErrorHandling = `// Error handling after input scanning
-if err := input.Err(); err != nil {
-    log.Fatalln(err)
-}
-`;
+func main() {
+	a := zkm_runtime.Read[Data]()
+	a.Input1[0] = a.Input1[0] + a.Input1[1]
+	a.Input2 = a.Input2 + a.Input2
+	a.Input3 = a.Input3 + a.Input3
+	a.Input4 = a.Input4 + a.Input4
+	a.Input5 = a.Input5 + a.Input5
+	a.Input6 = a.Input6 + a.Input6
+	a.Input7 = a.Input7 + a.Input7
+	a.Input8 = a.Input8 + a.Input8
+	a.Input9 = a.Input9 + a.Input9
+	if a.Input11 != TYPE3 {
+		println("enum type error")
+	}
+	if a.Input12 != "hello" {
+		println("string type error")
+	}
+	a.Input10[0] = a.Input10[0] + a.Input10[1]
+	zkm_runtime.Commit[Data](a)
+}`;
 
 export default function Section1() {
   const [formattedProof, setFormattedProof] = useState("");
+
+  const language = useContext(LanguageContext);
 
   useEffect(() => {
     if (!localStorage.getItem("proof")) {
@@ -93,28 +150,9 @@ export default function Section1() {
           complete. This proof will be run through this code as the guest
           program:
         </p>
-        <SyntaxHighlighter language="rust" style={twilight}>{`#![no_std]
-#![no_main]
-
-use sha2::{Digest, Sha256};
-extern crate alloc;
-use alloc::vec::Vec;
-
-zkm_runtime::entrypoint!(main);
-
-pub fn main() {
-    let public_input: Vec<u8> = zkm_runtime::io::read();
-    let input: Vec<u8> = zkm_runtime::io::read();
-
-    let mut hasher = Sha256::new();
-    hasher.update(input);
-    let result = hasher.finalize();
-
-    let output: [u8; 32] = result.into();
-    assert_eq!(output.to_vec(), public_input);
-
-    zkm_runtime::io::commit::<[u8; 32]>(&output);
-}`}</SyntaxHighlighter>
+        <SyntaxHighlighter language={language} style={twilight}>
+          {language === Language.RUST ? rust : go}
+        </SyntaxHighlighter>
         <p className="my-2">
           You can change the values of the stdin and generate a proof using the
           new values.

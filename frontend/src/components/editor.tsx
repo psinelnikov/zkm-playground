@@ -5,6 +5,7 @@ import ProgressBar from "@/components/progressbar";
 import { Go } from "./languages/go";
 import { LanguageContext } from "@/app/context";
 import { Rust } from "./languages/rust";
+import { Language } from "@/app/config";
 
 export const Editor = () => {
   const [input, setInput] = useState("");
@@ -17,22 +18,41 @@ export const Editor = () => {
     e.preventDefault();
     try {
       setIsGenerating(true);
-      // const response = await fetch(
-      //   "https://playgroundapi.zkm.io/generateProof",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({ code, input }),
-      //   }
-      // );
-      // if (!response.ok) {
-      //   throw new Error("Failed to connect backend server");
-      // }
-      // const retData = await response.text();
-      // localStorage.setItem("proof", retData);
-      // setIsGenerating(false);
+      if (language === Language.RUST) {
+        const response = await fetch(
+          "https://playgroundapi.zkm.io/generateRustProof",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ code, input }),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to connect backend server");
+        }
+        const retData = await response.text();
+        localStorage.setItem("proof", retData);
+      } else if (language === Language.GO) {
+        const response = await fetch(
+          "https://playgroundapi.zkm.io/generateGolangProof",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ code, input }),
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to connect backend server");
+        }
+        const retData = await response.text();
+        localStorage.setItem("proof", retData);
+      }
+
+      setIsGenerating(false);
     } catch (error) {
       console.error(error);
       setIsGenerating(false);
@@ -55,7 +75,7 @@ export const Editor = () => {
   return (
     <div className="flex flex-col">
       <div className="flex items-center">
-        {language === "golang" ? <Go /> : <Rust />}
+        {language === Language.GO ? <Go /> : <Rust />}
       </div>
 
       <div className="flex items-center my-4">
