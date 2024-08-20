@@ -12,10 +12,12 @@ export default function Section4() {
 
   useEffect(() => {
     const textProof = localStorage.getItem("proof");
-    if (textProof) {
-      const proofObject = JSON.parse(textProof);
-      setFormattedProof(JSON.stringify(proofObject, undefined, 4));
+    if (!textProof || textProof === "false" || textProof == "Service is Busy") {
+      return;
     }
+
+    const proofObject = JSON.parse(textProof);
+    setFormattedProof(JSON.stringify(proofObject, undefined, 4));
   }, []);
 
   return (

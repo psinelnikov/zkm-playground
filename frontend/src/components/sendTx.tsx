@@ -32,7 +32,7 @@ export const SendTx = ({ text }: { text: string }) => {
     }
 
     try {
-      if (proof === "false" || proof == "Service is Busy") {
+      if (!proof || proof === "false" || proof == "Service is Busy") {
         return;
       }
       const proofObj = JSON.parse(proof);

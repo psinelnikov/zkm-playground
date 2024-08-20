@@ -30,7 +30,7 @@ export const Editor = () => {
           }
         );
         if (!response.ok) {
-          throw new Error("Failed to connect backend server");
+          throw new Error("Failed to connect to backend server");
         }
         const retData = await response.text();
         localStorage.setItem("proof", retData);
@@ -46,7 +46,7 @@ export const Editor = () => {
           }
         );
         if (!response.ok) {
-          throw new Error("Failed to connect backend server");
+          throw new Error("Failed to connect to backend server");
         }
         const retData = await response.text();
         localStorage.setItem("proof", retData);
