@@ -1,34 +1,32 @@
 {
-  "name": "erc-mint-proof",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+  "name": "react-eth-metamask-signatures",
+  "version": "1.0.0",
+  "description": "Sign and verify messages using React.js and MetaMask",
+  "keywords": [
+    "ethereum",
+    "react.js"
+  ],
+  "main": "src/index.js",
   "dependencies": {
-    "@tanstack/react-query": "^5.48.0",
-    "js-sha256": "^0.11.0",
-    "next": "14.2.4",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-syntax-highlighter": "^15.5.0",
-    "viem": "~2.19.2",
-    "wagmi": "^2.12.4",
-    "web3": "^4.10.0"
+    "ethers": "5.4.5",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-scripts": "4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "encoding": "^0.1.13",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.4",
-    "pino-pretty": "^11.2.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  }
+    "@babel/runtime": "7.13.8",
+    "typescript": "4.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

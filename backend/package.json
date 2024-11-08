@@ -10,7 +10,8 @@
     "@types/node": "^20.14.8",
     "axios": "^1.7.2",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "hardhat": "^2.22.15"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
