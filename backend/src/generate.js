@@ -1,77 +1,3 @@
-const axios = require("axios");
-const { exec } = require("child_process");
-const util = require("util");
-const path = require("path");
-const fs = require("fs");
-const fsPromises = require("fs/promises");
-const execPromise = util.promisify(exec);
-
-module.exports = generateSigVerificationProof = async (
-  message,
-  address,
-  signature,
-  res
-) => {
-  const scriptPath = path.join(
-    __dirname,
-    "../../zkm-project-template/host-program/run-local-proving-sigverif.sh"
-  );
-  const snarkProofPath = path.join(
-    __dirname,
-    "../../zkm-project-template/contracts/verifier/snark_proof_with_public_inputs.json"
-  );
-  const publicInputsPath = path.join(
-    __dirname,
-    "../../zkm-project-template/contracts/verifier/public_inputs.json"
-  );
-
-  try {
-    // Start watching for file before executing script
-    // const fileWatcher = new Promise((resolve, reject) => {
-    //   const watcher = fs.watch(
-    //     path.dirname(outputPath),
-    //     (eventType, filename) => {
-    //       if (
-    //         eventType === "rename" &&
-    //         filename === path.basename(outputPath)
-    //       ) {
-    //         watcher.close();
-    //         resolve();
-    //       }
-    //     }
-    //   );
-
-    //   // Timeout after 30 seconds
-    //   setTimeout(() => {
-    //     watcher.close();
-    //     reject(new Error("File watch timeout"));
-    //   }, 30000);
-    // });
-
-    // // Execute bash script
-    await runBashWithExecPromise(scriptPath, message, address, signature);
-
-    // // Wait for file to be created
-    // await fileWatcher;
-
-    // // Ensure file is completely written
-    // await new Promise((resolve) => setTimeout(resolve, 100));
-
-    const snarkProof = await fsPromises.readFile(snarkProofPath, "utf8");
-    const jsonSnarkProof = JSON.parse(snarkProof);
-
-    const publicInputs = await fsPromises.readFile(publicInputsPath, "utf8");
-    const jsonPublicInputs = JSON.parse(publicInputs);
-
-    res.json({ jsonSnarkProof, jsonPublicInputs });
-  } catch (error) {
-    res.status(500).json({
-      error: error.message,
-      timestamp: new Date(),
-    });
-  }
-};
-
 // module.exports = postDataToIPFS = async (message, address, signature, res) => {
 //   const jsonObject = { message, address, signature };
 //   const uploadResult = await uploadJsonToIPFS(jsonObject);
@@ -85,57 +11,57 @@ module.exports = generateSigVerificationProof = async (
 //   }
 // };
 
-async function uploadJsonToIPFS(jsonData) {
-  try {
-    // Convert JSON object to Buffer
-    const jsonBuffer = Buffer.from(JSON.stringify(jsonData));
+// async function uploadJsonToIPFS(jsonData) {
+//   try {
+//     // Convert JSON object to Buffer
+//     const jsonBuffer = Buffer.from(JSON.stringify(jsonData));
 
-    // Create FormData and append the file
-    const formData = new FormData();
-    formData.append(
-      "file",
-      new Blob([jsonBuffer], { type: "application/json" })
-    );
+//     // Create FormData and append the file
+//     const formData = new FormData();
+//     formData.append(
+//       "file",
+//       new Blob([jsonBuffer], { type: "application/json" })
+//     );
 
-    // Make POST request to IPFS API
-    const response = await fetch("http://localhost:5001/api/v0/add", {
-      method: "POST",
-      body: formData,
-    });
+//     // Make POST request to IPFS API
+//     const response = await fetch("http://localhost:5001/api/v0/add", {
+//       method: "POST",
+//       body: formData,
+//     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
 
-    const result = await response.json();
+//     const result = await response.json();
 
-    return {
-      success: true,
-      cid: result.Hash,
-      size: result.Size,
-      path: `ipfs://${result.Hash}`,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      error: error.message,
-    };
-  }
-}
+//     return {
+//       success: true,
+//       cid: result.Hash,
+//       size: result.Size,
+//       path: `ipfs://${result.Hash}`,
+//     };
+//   } catch (error) {
+//     return {
+//       success: false,
+//       error: error.message,
+//     };
+//   }
+// }
 
-async function runBashWithExecPromise(scriptPath, message, address, signature) {
-  try {
-    const { stdout, stderr } = await execPromise(
-      `${scriptPath} ${message} ${address} ${signature}`
-    );
-    console.log("Script Output:", stdout);
-    if (stderr) {
-      console.error("Script Errors:", stderr);
-    }
-  } catch (error) {
-    console.error("Execution error:", error);
-  }
-}
+// async function runBashWithExecPromise(scriptPath, message, address, signature) {
+//   try {
+//     const { stdout, stderr } = await execPromise(
+//       `${scriptPath} ${message} ${signature} ${address}`
+//     );
+//     console.log("Script Output:", stdout);
+//     if (stderr) {
+//       console.error("Script Errors:", stderr);
+//     }
+//   } catch (error) {
+//     console.error("Execution error:", error);
+//   }
+// }
 
 // module.exports = generateGolangProof = async (code, input, res) => {
 //   const inputCommand = `cd .. && echo '${code}' > program.go`;

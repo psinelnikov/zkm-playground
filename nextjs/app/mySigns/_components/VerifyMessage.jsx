@@ -19,7 +19,7 @@ const verifyMessage = async ({ message, address, signature }) => {
   }
 };
 
-export function VerifyMessage() {
+export function VerifyMessage({ message, signature }) {
   const [error, setError] = useState();
   const [successMsg, setSuccessMsg] = useState();
 
@@ -58,21 +58,21 @@ export function VerifyMessage() {
               />
             </div>
             <div className="my-3">
-              <textarea
-                required
-                type="text"
-                name="signature"
-                className="textarea w-full h-24 textarea-bordered focus:ring focus:outline-none"
-                placeholder="Signature"
-              />
-            </div>
-            <div className="my-3">
               <input
                 required
                 type="text"
                 name="address"
                 className="textarea w-full input input-bordered focus:ring focus:outline-none"
                 placeholder="Signer address"
+              />
+            </div>
+            <div className="my-3">
+              <textarea
+                required
+                type="text"
+                name="signature"
+                className="textarea w-full h-24 textarea-bordered focus:ring focus:outline-none"
+                placeholder="Signature"
               />
             </div>
           </div>

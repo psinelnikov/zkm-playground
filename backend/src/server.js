@@ -1,15 +1,42 @@
 const http = require("http");
 const express = require("express");
-const generateSigVerificationProof = require("./generate");
 const cors = require("cors");
 const app = express();
 const path = require("path");
-let isProcessing = false;
-// app.use(
-//   cors({
-//     origin: "https://api.zendit.live",
-//   })
-// );
+const { exec } = require("child_process");
+const util = require("util");
+const execPromise = util.promisify(exec);
+const fsPromises = require("fs/promises");
+
+async function runBashWithExecPromise(scriptPath, ...args) {
+  const formattedArgs = args.join(" ");
+  try {
+    const { stdout, stderr } = await execPromise(
+      `${scriptPath} ${formattedArgs}`
+    );
+    console.log("Script Output:", stdout);
+    if (stderr) {
+      console.error("Script Errors:", stderr);
+    }
+  } catch (error) {
+    console.error("Execution error:", error);
+  }
+}
+
+const snarkProofPath = path.join(
+  __dirname,
+  "../../zkm-project-template/contracts/verifier/snark_proof_with_public_inputs.json"
+);
+const publicInputsPath = path.join(
+  __dirname,
+  "../../zkm-project-template/contracts/verifier/public_inputs.json"
+);
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,19 +44,19 @@ app.get("/", (req, res) => {
   res.send("Hello from prover-service!");
 });
 
-app.get("/proof", (req, res) => {
-  const snarkProofPath = path.join(
-    __dirname,
-    "../../zkm-project-template/contracts/verifier/snark_proof_with_public_inputs.json"
-  );
-  const publicInputsPath = path.join(
-    __dirname,
-    "../../zkm-project-template/contracts/verifier/snark_proof_with_public_inputs.json"
-  );
-
+app.get("/proof", async (req, res) => {
   try {
-    const snarkProof = require(snarkProofPath);
-    const publicInputs = require(publicInputsPath);
+    const unformattedSnarkProof = await fsPromises.readFile(
+      snarkProofPath,
+      "utf8"
+    );
+    const snarkProof = JSON.parse(unformattedSnarkProof);
+
+    const unformattedPublicInputs = await fsPromises.readFile(
+      publicInputsPath,
+      "utf8"
+    );
+    const publicInputs = JSON.parse(unformattedPublicInputs);
 
     res.json({ snarkProof, publicInputs });
   } catch (error) {
@@ -37,10 +64,70 @@ app.get("/proof", (req, res) => {
   }
 });
 
-app.post("/proof", async (req, res) => {
-  const { message, address, signature } = req.body;
+app.post("/generateSigVerificationProof", async (req, res) => {
+  const { message, signature, address } = req.body;
+  console.log(message, signature, address);
 
-  await generateSigVerificationProof(message, address, signature, res);
+  const scriptPath = path.join(
+    __dirname,
+    "../../zkm-project-template/host-program/run-local-proving-sigverify.sh"
+  );
+
+  try {
+    await runBashWithExecPromise(scriptPath, message, signature, address);
+
+    const unformattedSnarkProof = await fsPromises.readFile(
+      snarkProofPath,
+      "utf8"
+    );
+    const snarkProof = JSON.parse(unformattedSnarkProof);
+
+    const unformattedPublicInputs = await fsPromises.readFile(
+      publicInputsPath,
+      "utf8"
+    );
+    const publicInputs = JSON.parse(unformattedPublicInputs);
+
+    res.json({ snarkProof, publicInputs });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+      timestamp: new Date(),
+    });
+  }
+});
+
+app.post("/generateFormDataProof", async (req, res) => {
+  const { email, ethAddress, number } = req.body;
+  console.log(email, ethAddress, number);
+
+  const scriptPath = path.join(
+    __dirname,
+    "../../zkm-project-template/host-program/run-local-proving-emailverify.sh"
+  );
+
+  try {
+    await runBashWithExecPromise(scriptPath, email, ethAddress, number);
+
+    const unformattedSnarkProof = await fsPromises.readFile(
+      snarkProofPath,
+      "utf8"
+    );
+    const snarkProof = JSON.parse(unformattedSnarkProof);
+
+    const unformattedPublicInputs = await fsPromises.readFile(
+      publicInputsPath,
+      "utf8"
+    );
+    const publicInputs = JSON.parse(unformattedPublicInputs);
+
+    res.json({ snarkProof, publicInputs });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+      timestamp: new Date(),
+    });
+  }
 });
 
 // app.post("/insert", async (req, res) => {

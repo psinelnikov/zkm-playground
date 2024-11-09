@@ -10,6 +10,7 @@ import {
   ArrowUpTrayIcon,
   Bars3Icon,
   BugAntIcon,
+  EnvelopeIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
@@ -23,13 +24,13 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: "Sign Message",
-    href: "/messageSigner",
-    icon: <PhotoIcon className="h-4 w-4" />,
+    label: "My Form",
+    href: "/myForm",
+    icon: <EnvelopeIcon className="h-4 w-4" />,
   },
   {
-    label: "My NFTs",
-    href: "/myNFTs",
+    label: "My Signs",
+    href: "/mySigns",
     icon: <PhotoIcon className="h-4 w-4" />,
   },
   {

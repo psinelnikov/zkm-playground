@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     YourCollectible: {
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      address: "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
       abi: [
         {
           inputs: [],
@@ -228,11 +228,6 @@ const deployedContracts = {
               type: "address",
             },
             {
-              internalType: "string",
-              name: "uri",
-              type: "string",
-            },
-            {
               components: [
                 {
                   components: [
@@ -299,6 +294,21 @@ const deployedContracts = {
               internalType: "uint256[2]",
               name: "proof_commitment",
               type: "uint256[2]",
+            },
+            {
+              internalType: "bytes",
+              name: "userData",
+              type: "bytes",
+            },
+            {
+              internalType: "uint32[8]",
+              name: "memRootBefore",
+              type: "uint32[8]",
+            },
+            {
+              internalType: "uint32[8]",
+              name: "memRootAfter",
+              type: "uint32[8]",
             },
           ],
           name: "mintItem",
