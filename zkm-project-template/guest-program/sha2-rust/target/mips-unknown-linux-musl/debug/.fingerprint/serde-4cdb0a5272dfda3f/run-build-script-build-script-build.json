@@ -1,0 +1,1 @@
+{"rustc":5719351102611386511,"features":"","target":0,"profile":0,"path":0,"deps":[[14167244004666094748,"build_script_build",false,7799310434018876164]],"local":[{"RerunIfChanged":{"output":"mips-unknown-linux-musl/debug/build/serde-4cdb0a5272dfda3f/output","paths":["build.rs"]}}],"rustflags":[],"metadata":0,"config":0,"compile_kind":0}

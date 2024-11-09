@@ -1,0 +1,19 @@
+[2024-11-09T20:29:16Z INFO  zkm_prove] new prover client.
+[2024-11-09T20:29:16Z INFO  zkm_prove] new prover client,ok.
+[2024-11-09T20:29:16Z INFO  zkm_prove] sigverify-go, bincode(public_input): [5, 0, 0, 0, 0, 0, 0, 0, 72, 101, 108, 108, 111, 132, 0, 0, 0, 0, 0, 0, 0, 48, 120, 99, 101, 50, 56, 97, 57, 52, 50, 55, 49, 48, 102, 49, 51, 54, 49, 53, 102, 102, 55, 52, 98, 99, 100, 48, 100, 52, 56, 100, 52, 100, 51, 50, 102, 50, 50, 53, 51, 99, 51, 99, 100, 56, 56, 99, 100, 102, 98, 98, 48, 100, 52, 51, 52, 97, 57, 57, 101, 49, 98, 100, 48, 57, 49, 52, 50, 51, 99, 54, 98, 57, 53, 51, 54, 51, 99, 97, 49, 53, 102, 54, 53, 54, 54, 51, 49, 51, 101, 99, 48, 97, 99, 51, 97, 51, 50, 53, 54, 56, 57, 53, 54, 101, 99, 53, 99, 55, 98, 50, 53, 98, 57, 48, 51, 48, 51, 53, 52, 48, 98, 56, 48, 56, 53, 56, 99, 53, 49, 49, 99, 42, 0, 0, 0, 0, 0, 0, 0, 48, 120, 51, 52, 102, 54, 50, 55, 57, 55, 56, 100, 100, 53, 49, 97, 48, 97, 97, 53, 102, 100, 101, 54, 49, 50, 49, 56, 48, 99, 53, 100, 53, 48, 102, 101, 98, 55, 54, 99, 48, 57] 
+[2024-11-09T20:29:16Z INFO  zkm_sdk::local::prover] calling request_proof.
+[2024-11-09T20:29:16Z INFO  zkm_sdk::local::prover] calling wait_proof, proof_id=efb0cde5-f3bf-4a4b-afb5-0f7c07dd8d11
+[2024-11-09T20:29:16Z INFO  zkm_sdk::local::prover] waiting the proof result.
+[2024-11-09T20:29:32Z INFO  zkm_emulator::utils] Split done 150195359 : 164882919
+[2024-11-09T20:29:32Z INFO  zkm_sdk::local::stark] !!!*******seg_num:5151
+[2024-11-09T20:30:11Z INFO  zkm_sdk::local::util] Process segment /tmp/efb0cde5-f3bf-4a4b-afb5-0f7c07dd8d11/input/segments/0
+[2024-11-09T20:30:12Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 2712 cycles
+[2024-11-09T20:30:12Z INFO  zkm_prover::generation] CPU halted after 31994 cycles
+[2024-11-09T20:30:12Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T20:30:12Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 14668, cpu_len: 32768, poseidon_len: 2711, poseidon_sponge_len: 2711, logic_len: 1, memory_len: 253812 }
+[2024-11-09T20:30:33Z INFO  plonky2::util::timing] 21.1639s to prove root first
+[2024-11-09T20:30:33Z INFO  zkm_sdk::local::util] Process segment /tmp/efb0cde5-f3bf-4a4b-afb5-0f7c07dd8d11/input/segments/1
+[2024-11-09T20:30:34Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 4131 cycles
+[2024-11-09T20:30:34Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T20:30:34Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T20:30:34Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 17437, cpu_len: 32768, poseidon_len: 4130, poseidon_sponge_len: 4130, logic_len: 1398, memory_len: 295354 }

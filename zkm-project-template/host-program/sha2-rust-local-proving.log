@@ -1,0 +1,5 @@
+[2024-11-07T23:28:40Z INFO  zkm_prove] new prover client.
+[2024-11-07T23:28:40Z INFO  zkm_prove] new prover client,ok.
+thread 'main' panicked at host-program/src/bin/zkm-prove.rs:215:29:
+called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

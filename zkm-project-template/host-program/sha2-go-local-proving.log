@@ -1,0 +1,10 @@
+[2024-11-08T02:14:51Z INFO  zkm_prove] new prover client.
+[2024-11-08T02:14:51Z INFO  zkm_prove] new prover client,ok.
+[2024-11-08T02:14:51Z INFO  zkm_prove] sha2_go, bincode(pulic_input): [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 17, 255, 34, 17, 255, 255, 51, 34, 17, 0, 255, 255, 255, 255, 85, 68, 51, 34, 17, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 32, 0, 0, 0, 0, 0, 0, 0, 113, 30, 150, 9, 51, 158, 146, 176, 61, 220, 10, 33, 24, 39, 219, 164, 33, 243, 143, 158, 216, 185, 216, 6, 225, 255, 221, 140, 21, 255, 160, 61, 2, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 119, 111, 114, 108, 100, 33] 
+[2024-11-08T02:14:51Z INFO  zkm_sdk::local::prover] calling request_proof.
+[2024-11-08T02:14:51Z INFO  zkm_sdk::local::prover] calling wait_proof, proof_id=8479416d-0fa5-423f-9fb2-41db41704ae2
+[2024-11-08T02:14:51Z INFO  zkm_sdk::local::prover] waiting the proof result.
+[2024-11-08T02:14:51Z INFO  zkm_emulator::utils] Split done 347823 : 533329
+[2024-11-08T02:15:21Z INFO  zkm_prove] Executing the guest program  successfully.
+[2024-11-08T02:15:21Z INFO  zkm_prove] ret_data: Data { input1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], input2: 17, input3: -1, input4: 4386, input5: -1, input6: 1122867, input7: -1, input8: 73588229205, input9: -1, input10: [113, 30, 150, 9, 51, 158, 146, 176, 61, 220, 10, 33, 24, 39, 219, 164, 33, 243, 143, 158, 216, 185, 216, 6, 225, 255, 221, 140, 21, 255, 160, 61], input11: TYPE3, input12: "world!" }
+[2024-11-08T02:15:21Z INFO  zkm_prove] Elapsed time: 30 secs

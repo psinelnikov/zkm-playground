@@ -1,0 +1,175 @@
+package main
+
+import (
+	"encoding/hex"
+	"fmt"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
+
+	// "github.com/ipfs/go-cid"
+	// "github.com/multiformats/go-multihash"
+	"github.com/zkMIPS/zkm/go-runtime/zkm_runtime"
+)
+
+type DataId uint32
+
+// use iota to create enum
+const (
+	TYPE1 DataId = iota
+	TYPE2
+	TYPE3
+)
+
+type SignedMessage struct {
+	Message   string
+	Address   string
+	Signature string
+}
+
+// generateIPFSHash generates an IPFS hash (CIDv1) for the given SignedMessage
+// func generateIPFSHash(message SignedMessage) (string, error) {
+// 	// Convert the message to JSON
+// 	jsonData, err := json.Marshal(message)
+// 	if err != nil {
+// 		return "", fmt.Errorf("failed to marshal message: %v", err)
+// 	}
+
+// 	// Create a multihash of the data using SHA2-256
+// 	mh, err := multihash.Sum(jsonData, multihash.SHA2_256, -1)
+// 	if err != nil {
+// 		return "", fmt.Errorf("failed to create multihash: %v", err)
+// 	}
+
+// 	// Create a CIDv1 with dag-pb codec
+// 	cidV1 := cid.NewCidV1(cid.DagProtobuf, mh)
+
+// 	return cidV1.String(), nil
+// }
+
+// VerifySignature verifies if the signature is valid for the given message and address
+// func VerifySignature(message string, address string, signature string) (bool, error) {
+// 	// Remove "0x" prefix if present
+// 	if len(signature) > 2 && signature[:2] == "0x" {
+// 		signature = signature[2:]
+// 	}
+
+// 	// Decode the signature from hex
+// 	sigBytes, err := hex.DecodeString(signature)
+// 	if err != nil {
+// 		return false, fmt.Errorf("failed to decode signature: %v", err)
+// 	}
+
+// 	// Check signature length
+// 	if len(sigBytes) != 65 {
+// 		return false, fmt.Errorf("invalid signature length: %d", len(sigBytes))
+// 	}
+
+// 	// Add Ethereum message prefix
+// 	prefixedMessage := fmt.Sprintf("\x19Ethereum Signed Message:\n%d%s", len(message), message)
+// 	hashedMessage := crypto.Keccak256Hash([]byte(prefixedMessage))
+
+// 	// Convert signature to R, S, V format
+// 	r := sigBytes[:32]
+// 	s := sigBytes[32:64]
+// 	v := sigBytes[64]
+
+// 	// Convert v to 0/1
+// 	if v >= 27 {
+// 		v -= 27
+// 	}
+
+// 	// Recover public key
+// 	pubKey, err := crypto.Ecrecover(hashedMessage.Bytes(), append(append(r, s...), v))
+// 	if err != nil {
+// 		return false, fmt.Errorf("failed to recover public key: %v", err)
+// 	}
+
+// 	// Convert public key to address
+// 	recoveredPubKey, err := crypto.UnmarshalPubkey(pubKey)
+// 	if err != nil {
+// 		return false, fmt.Errorf("failed to unmarshal public key: %v", err)
+// 	}
+
+// 	recoveredAddress := crypto.PubkeyToAddress(*recoveredPubKey)
+// 	inputAddress := common.HexToAddress(address)
+
+// 	// Compare addresses
+// 	return recoveredAddress == inputAddress, nil
+// }
+
+// VerifySignature verifies if the signature is valid for the given message and address
+func VerifySignature(message string, address string, signature string) (bool, error) {
+	// Remove "0x" prefix if present
+	if len(signature) > 2 && signature[:2] == "0x" {
+		signature = signature[2:]
+	}
+
+	// Decode the signature from hex
+	sigBytes, err := hex.DecodeString(signature)
+	if err != nil {
+		return false, fmt.Errorf("failed to decode signature: %v", err)
+	}
+
+	// Check signature length
+	if len(sigBytes) != 65 {
+		return false, fmt.Errorf("invalid signature length: %d", len(sigBytes))
+	}
+
+	// Add Ethereum message prefix
+	prefixedMessage := fmt.Sprintf("\x19Ethereum Signed Message:\n%d%s", len(message), message)
+	hashedMessage := crypto.Keccak256Hash([]byte(prefixedMessage))
+
+	// Convert signature to R, S, V format
+	r := sigBytes[:32]
+	s := sigBytes[32:64]
+	v := sigBytes[64]
+
+	// Convert v to 0/1
+	if v >= 27 {
+		v -= 27
+	}
+
+	// Recover public key
+	pubKey, err := crypto.Ecrecover(hashedMessage.Bytes(), append(append(r, s...), v))
+	if err != nil {
+		return false, fmt.Errorf("failed to recover public key: %v", err)
+	}
+
+	// Convert public key to address
+	recoveredPubKey, err := crypto.UnmarshalPubkey(pubKey)
+	if err != nil {
+		return false, fmt.Errorf("failed to unmarshal public key: %v", err)
+	}
+
+	recoveredAddress := crypto.PubkeyToAddress(*recoveredPubKey)
+	inputAddress := common.HexToAddress(address)
+
+	// Compare addresses
+	return recoveredAddress == inputAddress, nil
+}
+
+func main() {
+	signedMessage := zkm_runtime.Read[SignedMessage]()
+	
+	// Generate IPFS hash
+	// ipfsHash, err := generateIPFSHash(signedMessage)
+	// if err != nil {
+	// 	fmt.Printf("Error generating IPFS hash: %v\n", err)
+	// 	return
+	// }
+	
+	// Verify signature
+	isValid, err := VerifySignature(signedMessage.Message, signedMessage.Address, signedMessage.Signature)
+	if err != nil {
+		fmt.Printf("Error verifying signature: %v\n", err)
+		return
+	}
+
+	if isValid {
+		fmt.Printf("Signature is valid!")
+		zkm_runtime.Commit[SignedMessage](signedMessage)
+	} else {
+		fmt.Println("Signature is invalid!")
+	}
+}

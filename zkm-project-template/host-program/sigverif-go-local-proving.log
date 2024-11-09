@@ -1,0 +1,9 @@
+[2024-11-09T04:54:45Z INFO  zkm_prove] new prover client.
+[2024-11-09T04:54:45Z INFO  zkm_prove] new prover client,ok.
+[2024-11-09T04:54:45Z INFO  zkm_prove] sigverif-go, bincode(public_input): [16, 0, 0, 0, 0, 0, 0, 0, 116, 101, 115, 116, 64, 101, 120, 97, 109, 112, 108, 101, 46, 99, 111, 109, 12, 0, 0, 0, 0, 0, 0, 0, 64, 105, 110, 118, 97, 108, 105, 100, 46, 99, 111, 109, 14, 0, 0, 0, 0, 0, 0, 0, 105, 110, 118, 97, 108, 105, 100, 46, 101, 109, 97, 105, 108, 64] 
+[2024-11-09T04:54:45Z INFO  zkm_sdk::local::prover] calling request_proof.
+[2024-11-09T04:54:45Z INFO  zkm_sdk::local::prover] calling wait_proof, proof_id=b8ecd9ee-3c3a-44e7-b52e-f67664b4daff
+[2024-11-09T04:54:45Z INFO  zkm_sdk::local::prover] waiting the proof result.
+Error verifying signature: failed to decode signature: encoding/hex: invalid byte: U+0040 '@'
+[2024-11-09T04:54:45Z INFO  zkm_emulator::utils] Split done 709222 : 1146664
+[2024-11-09T04:54:45Z INFO  zkm_sdk::local::stark] !!!*******seg_num:33

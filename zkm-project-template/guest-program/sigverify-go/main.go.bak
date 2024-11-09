@@ -1,0 +1,331 @@
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"math/big"
+	"strings"
+	"sync"
+
+	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/ethereum/go-ethereum/params"
+	"github.com/ethereum/go-ethereum/rpc"
+)
+
+// StateSnapshot represents an account's state
+type StateSnapshot struct {
+	Balance  *big.Int
+	Nonce    uint64
+	Code     []byte
+	Storage  map[common.Hash]common.Hash
+}
+
+// ForkSimulator manages the forked blockchain state
+type ForkSimulator struct {
+	client      *ethclient.Client
+	rpcClient   *rpc.Client
+	state       map[common.Address]*StateSnapshot
+	config      *params.ChainConfig
+	blockNumber *big.Int
+	ctx         context.Context
+	mu          sync.RWMutex
+}
+
+// NewForkSimulator creates a new instance of ForkSimulator
+func NewForkSimulator(nodeURL string, blockNumber *big.Int) (*ForkSimulator, error) {
+	rpcClient, err := rpc.Dial(nodeURL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to connect to Ethereum node via RPC: %v", err)
+	}
+
+	client := ethclient.NewClient(rpcClient)
+
+	// Get block
+	_, err = client.BlockByNumber(context.Background(), blockNumber)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get block: %v", err)
+	}
+
+	return &ForkSimulator{
+		client:      client,
+		rpcClient:   rpcClient,
+		state:       make(map[common.Address]*StateSnapshot),
+		config:      params.MainnetChainConfig,
+		blockNumber: blockNumber,
+		ctx:         context.Background(),
+	}, nil
+}
+
+// LoadAccountState fetches account state from the node
+func (fs *ForkSimulator) LoadAccountState(address common.Address) error {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+
+	// Get balance
+	balance, err := fs.client.BalanceAt(fs.ctx, address, fs.blockNumber)
+	if err != nil {
+		return fmt.Errorf("failed to get balance: %v", err)
+	}
+
+	// Get nonce
+	nonce, err := fs.client.NonceAt(fs.ctx, address, fs.blockNumber)
+	if err != nil {
+		return fmt.Errorf("failed to get nonce: %v", err)
+	}
+
+	// Get code
+	code, err := fs.client.CodeAt(fs.ctx, address, fs.blockNumber)
+	if err != nil {
+		return fmt.Errorf("failed to get code: %v", err)
+	}
+
+	// Create state snapshot
+	snapshot := &StateSnapshot{
+		Balance:  balance,
+		Nonce:    nonce,
+		Code:     code,
+		Storage:  make(map[common.Hash]common.Hash),
+	}
+
+	// If this is a contract, fetch storage
+	if len(code) > 0 {
+		// We'll fetch storage slots as needed
+		// This is a placeholder for potential storage slot fetching
+	}
+
+	fs.state[address] = snapshot
+	return nil
+}
+
+// GetAccount retrieves account information
+func (fs *ForkSimulator) GetAccount(address common.Address) (uint64, *big.Int, error) {
+	fs.mu.RLock()
+	defer fs.mu.RUnlock()
+
+	snapshot, exists := fs.state[address]
+	if !exists {
+		err := fs.LoadAccountState(address)
+		if err != nil {
+			return 0, nil, fmt.Errorf("failed to load account state: %v", err)
+		}
+		snapshot = fs.state[address]
+	}
+
+	return snapshot.Nonce, snapshot.Balance, nil
+}
+
+// GetCode retrieves contract code
+func (fs *ForkSimulator) GetCode(address common.Address) ([]byte, error) {
+	fs.mu.RLock()
+	defer fs.mu.RUnlock()
+
+	snapshot, exists := fs.state[address]
+	if !exists {
+		err := fs.LoadAccountState(address)
+		if err != nil {
+			return nil, fmt.Errorf("failed to load account state: %v", err)
+		}
+		snapshot = fs.state[address]
+	}
+
+	return snapshot.Code, nil
+}
+
+// GetStorageAt gets the storage value at a specific slot
+func (fs *ForkSimulator) GetStorageAt(address common.Address, slot common.Hash) (common.Hash, error) {
+	fs.mu.RLock()
+	defer fs.mu.RUnlock()
+
+	value, err := fs.client.StorageAt(fs.ctx, address, slot, fs.blockNumber)
+	if err != nil {
+		return common.Hash{}, fmt.Errorf("failed to get storage: %v", err)
+	}
+
+	return common.BytesToHash(value), nil
+}
+
+// SimulateTransaction simulates a transaction using debug_traceCall
+func (fs *ForkSimulator) SimulateTransaction(tx *types.Transaction) ([]*TraceResult, error) {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+
+	// Create transaction call message
+	msg := ethereum.CallMsg{
+		From:     common.Address{}, // This will be set from tx.From() if available
+		To:       tx.To(),
+		Gas:      tx.Gas(),
+		GasPrice: tx.GasPrice(),
+		Value:    tx.Value(),
+		Data:     tx.Data(),
+	}
+
+	// Prepare trace request
+	var result interface{}
+	traceArgs := map[string]interface{}{
+		"tracer": "callTracer",
+		"tracerConfig": map[string]interface{}{
+			"onlyTopCall": false,
+			"withLog":     true,
+		},
+	}
+
+	blockNumberHex := fmt.Sprintf("0x%x", fs.blockNumber.Uint64())
+	
+	callArgs := map[string]interface{}{
+		"from":     msg.From.Hex(),
+		"to":       msg.To.Hex(),
+		"gas":      hexutil.EncodeUint64(msg.Gas),
+		"gasPrice": hexutil.EncodeBig(msg.GasPrice),
+		"value":    hexutil.EncodeBig(msg.Value),
+		"data":     hexutil.Encode(msg.Data),
+	}
+
+	err := fs.rpcClient.CallContext(fs.ctx, &result, "debug_traceCall", callArgs, blockNumberHex, traceArgs)
+	if err != nil {
+		return nil, fmt.Errorf("trace call failed: %v", err)
+	}
+
+	return parseTraceResult(result)
+}
+
+// TraceResult stores a single step of execution trace
+type TraceResult struct {
+	PC              uint64
+	Op              string
+	Gas             uint64
+	GasCost         uint64
+	Depth           int
+	Error           error
+	Stack           []string
+	Memory          []string
+	Storage         map[common.Hash]common.Hash
+	ContractAddress common.Address
+}
+
+// parseTraceResult converts RPC trace result to TraceResult structs
+func parseTraceResult(result interface{}) ([]*TraceResult, error) {
+	traces := make([]*TraceResult, 0)
+	
+	// Parse the raw trace data
+	if data, ok := result.(map[string]interface{}); ok {
+		// Extract trace steps
+		if steps, ok := data["steps"].([]interface{}); ok {
+			for _, step := range steps {
+				if stepData, ok := step.(map[string]interface{}); ok {
+					trace := &TraceResult{
+						PC:      parseHexUint64(stepData["pc"].(string)),
+						Op:      stepData["op"].(string),
+						Gas:     parseHexUint64(stepData["gas"].(string)),
+						GasCost: parseHexUint64(stepData["gasCost"].(string)),
+						Depth:   int(stepData["depth"].(float64)),
+					}
+
+					// Parse stack
+					if stackData, ok := stepData["stack"].([]interface{}); ok {
+						trace.Stack = make([]string, len(stackData))
+						for i, item := range stackData {
+							trace.Stack[i] = item.(string)
+						}
+					}
+
+					// Parse memory
+					if memoryData, ok := stepData["memory"].([]interface{}); ok {
+						trace.Memory = make([]string, len(memoryData))
+						for i, item := range memoryData {
+							trace.Memory[i] = item.(string)
+						}
+					}
+
+					// Parse storage
+					trace.Storage = make(map[common.Hash]common.Hash)
+					if storageData, ok := stepData["storage"].(map[string]interface{}); ok {
+						for key, value := range storageData {
+							keyHash := common.HexToHash(key)
+							valueHash := common.HexToHash(value.(string))
+							trace.Storage[keyHash] = valueHash
+						}
+					}
+
+					traces = append(traces, trace)
+				}
+			}
+		}
+	}
+
+	return traces, nil
+}
+
+// parseHexUint64 safely converts hex string to uint64
+func parseHexUint64(hex string) uint64 {
+	val, err := hexutil.DecodeUint64(hex)
+	if err != nil {
+		return 0
+	}
+	return val
+}
+
+func main() {
+	// Example usage
+	nodeURL := "https://mainnet.chainnodes.org/df5b9064-bd3c-4359-a032-689f62d98a6e" // Replace with your Infura project ID
+	blockNumber := big.NewInt(2113166)                       // Example block number
+
+	// Create fork simulator
+	simulator, err := NewForkSimulator(nodeURL, blockNumber)
+	if err != nil {
+		log.Fatalf("Failed to create fork simulator: %v", err)
+	}
+
+	// Example contract address (Uniswap V2 Router)
+	contractAddress := common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
+	
+	// Get contract code
+	code, err := simulator.GetCode(contractAddress)
+	if err != nil {
+		log.Fatalf("Failed to get contract code: %v", err)
+	}
+	fmt.Printf("Contract code length: %d bytes\n", len(code))
+
+	// Create example transaction
+	tx := types.NewTransaction(
+		0,                         // nonce
+		contractAddress,           // to
+		big.NewInt(0),            // value
+		100000,                   // gas limit
+		big.NewInt(20000000000),  // gas price
+		[]byte{0x12, 0x34, 0x56}, // data
+	)
+
+	// Simulate transaction
+	traces, err := simulator.SimulateTransaction(tx)
+	if err != nil {
+		log.Fatalf("Failed to simulate transaction: %v", err)
+	}
+
+	// Print execution trace
+	fmt.Println("\nExecution Trace:")
+	fmt.Println(strings.Repeat("-", 100))
+	for i, trace := range traces {
+		fmt.Printf("Step %d:\n", i+1)
+		fmt.Printf("  PC: %d\n", trace.PC)
+		fmt.Printf("  Operation: %s\n", trace.Op)
+		fmt.Printf("  Gas: %d\n", trace.Gas)
+		fmt.Printf("  Gas Cost: %d\n", trace.GasCost)
+		fmt.Printf("  Depth: %d\n", trace.Depth)
+		
+		if len(trace.Stack) > 0 {
+			fmt.Printf("  Stack: %v\n", trace.Stack)
+		}
+		if len(trace.Memory) > 0 {
+			fmt.Printf("  Memory: %v\n", trace.Memory)
+		}
+		if len(trace.Storage) > 0 {
+			fmt.Printf("  Storage: %v\n", trace.Storage)
+		}
+		fmt.Println(strings.Repeat("-", 100))
+	}
+}

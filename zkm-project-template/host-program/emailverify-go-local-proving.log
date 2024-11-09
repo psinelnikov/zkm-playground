@@ -1,0 +1,251 @@
+[2024-11-09T19:22:04Z INFO  zkm_prove] new prover client.
+[2024-11-09T19:22:04Z INFO  zkm_prove] new prover client,ok.
+[2024-11-09T19:22:04Z INFO  zkm_prove] emailverify-go, bincode(public_input): [20, 0, 0, 0, 0, 0, 0, 0, 112, 97, 118, 101, 108, 64, 115, 105, 110, 101, 108, 110, 105, 107, 111, 118, 46, 120, 121, 122, 42, 0, 0, 0, 0, 0, 0, 0, 48, 120, 51, 52, 102, 54, 50, 55, 57, 55, 56, 100, 100, 53, 49, 97, 48, 97, 65, 53, 70, 100, 101, 54, 49, 50, 49, 56, 48, 99, 53, 100, 53, 48, 70, 101, 66, 55, 54, 99, 48, 57, 2, 0, 0, 0, 0, 0, 0, 0, 52, 50] 
+[2024-11-09T19:22:04Z INFO  zkm_sdk::local::prover] calling request_proof.
+[2024-11-09T19:22:04Z INFO  zkm_sdk::local::prover] calling wait_proof, proof_id=4267671a-52e6-4ebb-85fa-9b7bd3eca95f
+[2024-11-09T19:22:04Z INFO  zkm_sdk::local::prover] waiting the proof result.
+All results are valid!
+[2024-11-09T19:22:04Z INFO  zkm_emulator::utils] Split done 686373 : 1051833
+[2024-11-09T19:22:04Z INFO  zkm_sdk::local::stark] !!!*******seg_num:31
+[2024-11-09T19:22:42Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/0
+[2024-11-09T19:22:43Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 2841 cycles
+[2024-11-09T19:22:43Z INFO  zkm_prover::generation] CPU halted after 31994 cycles
+[2024-11-09T19:22:43Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:22:43Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 14603, cpu_len: 32768, poseidon_len: 2840, poseidon_sponge_len: 2840, logic_len: 1, memory_len: 258288 }
+[2024-11-09T19:22:58Z INFO  plonky2::util::timing] 16.2531s to prove root first
+[2024-11-09T19:22:58Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/1
+[2024-11-09T19:22:59Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 4131 cycles
+[2024-11-09T19:22:59Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:22:59Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:22:59Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 17419, cpu_len: 32768, poseidon_len: 4130, poseidon_sponge_len: 4130, logic_len: 1391, memory_len: 295397 }
+[2024-11-09T19:23:15Z INFO  plonky2::util::timing] 17.3776s to prove root first
+[2024-11-09T19:23:15Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/2
+[2024-11-09T19:23:16Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 7485 cycles
+[2024-11-09T19:23:16Z INFO  zkm_prover::generation] CPU halted after 31994 cycles
+[2024-11-09T19:23:16Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:23:16Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 13384, cpu_len: 32768, poseidon_len: 7484, poseidon_sponge_len: 7484, logic_len: 3046, memory_len: 406523 }
+[2024-11-09T19:23:32Z INFO  plonky2::util::timing] 16.4357s to prove root second
+[2024-11-09T19:23:33Z INFO  plonky2::util::timing] 1.4240s to prove aggression
+[2024-11-09T19:23:35Z INFO  plonky2::util::timing] 1.5645s to prove nested aggression
+[2024-11-09T19:23:35Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/3
+[2024-11-09T19:23:36Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 11097 cycles
+[2024-11-09T19:23:36Z INFO  zkm_prover::generation] CPU halted after 32132 cycles
+[2024-11-09T19:23:36Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:23:36Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 9235, cpu_len: 32768, poseidon_len: 11096, poseidon_sponge_len: 11096, logic_len: 2740, memory_len: 534081 }
+[2024-11-09T19:23:56Z INFO  plonky2::util::timing] 21.4406s to prove root first
+[2024-11-09T19:23:56Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/4
+[2024-11-09T19:23:57Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 10323 cycles
+[2024-11-09T19:23:57Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:23:57Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:23:57Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 11015, cpu_len: 32768, poseidon_len: 10322, poseidon_sponge_len: 10322, logic_len: 1772, memory_len: 508348 }
+[2024-11-09T19:24:12Z INFO  plonky2::util::timing] 15.8831s to prove root second
+[2024-11-09T19:24:13Z INFO  plonky2::util::timing] 1.3738s to prove aggression
+[2024-11-09T19:24:15Z INFO  plonky2::util::timing] 1.3599s to prove nested aggression
+[2024-11-09T19:24:15Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/5
+[2024-11-09T19:24:16Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 3873 cycles
+[2024-11-09T19:24:16Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:24:16Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:24:16Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 18428, cpu_len: 32768, poseidon_len: 3872, poseidon_sponge_len: 3872, logic_len: 1782, memory_len: 282729 }
+[2024-11-09T19:24:31Z INFO  plonky2::util::timing] 15.9611s to prove root first
+[2024-11-09T19:24:31Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/6
+[2024-11-09T19:24:32Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 1938 cycles
+[2024-11-09T19:24:32Z INFO  zkm_prover::generation] CPU halted after 32381 cycles
+[2024-11-09T19:24:32Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:24:32Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 19948, cpu_len: 32768, poseidon_len: 1937, poseidon_sponge_len: 1937, logic_len: 2159, memory_len: 217114 }
+[2024-11-09T19:24:45Z INFO  plonky2::util::timing] 13.9924s to prove root second
+[2024-11-09T19:24:46Z INFO  plonky2::util::timing] 1.4266s to prove aggression
+[2024-11-09T19:24:48Z INFO  plonky2::util::timing] 1.4362s to prove nested aggression
+[2024-11-09T19:24:48Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/7
+[2024-11-09T19:24:49Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 6840 cycles
+[2024-11-09T19:24:49Z INFO  zkm_prover::generation] CPU halted after 32155 cycles
+[2024-11-09T19:24:49Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:24:49Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 15934, cpu_len: 32768, poseidon_len: 6839, poseidon_sponge_len: 6839, logic_len: 1739, memory_len: 387743 }
+[2024-11-09T19:25:05Z INFO  plonky2::util::timing] 17.8500s to prove root first
+[2024-11-09T19:25:05Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/8
+[2024-11-09T19:25:07Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 12774 cycles
+[2024-11-09T19:25:07Z INFO  zkm_prover::generation] CPU halted after 32096 cycles
+[2024-11-09T19:25:07Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:25:07Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8062, cpu_len: 32768, poseidon_len: 12773, poseidon_sponge_len: 12773, logic_len: 1733, memory_len: 594199 }
+[2024-11-09T19:25:26Z INFO  plonky2::util::timing] 20.5572s to prove root second
+[2024-11-09T19:25:27Z INFO  plonky2::util::timing] 1.3646s to prove aggression
+[2024-11-09T19:25:29Z INFO  plonky2::util::timing] 1.3366s to prove nested aggression
+[2024-11-09T19:25:29Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/9
+[2024-11-09T19:25:30Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 13677 cycles
+[2024-11-09T19:25:30Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:25:30Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:25:30Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 7816, cpu_len: 32768, poseidon_len: 13676, poseidon_sponge_len: 13676, logic_len: 799, memory_len: 628277 }
+[2024-11-09T19:25:50Z INFO  plonky2::util::timing] 21.5786s to prove root first
+[2024-11-09T19:25:50Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/10
+[2024-11-09T19:25:51Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 2841 cycles
+[2024-11-09T19:25:51Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:25:51Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:25:51Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 13340, cpu_len: 32768, poseidon_len: 2840, poseidon_sponge_len: 2840, logic_len: 237, memory_len: 250568 }
+[2024-11-09T19:26:07Z INFO  plonky2::util::timing] 16.2295s to prove root second
+[2024-11-09T19:26:08Z INFO  plonky2::util::timing] 1.5161s to prove aggression
+[2024-11-09T19:26:10Z INFO  plonky2::util::timing] 1.3821s to prove nested aggression
+[2024-11-09T19:26:10Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/11
+[2024-11-09T19:26:11Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 16257 cycles
+[2024-11-09T19:26:11Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:26:11Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:26:11Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 6158, cpu_len: 32768, poseidon_len: 16256, poseidon_sponge_len: 16256, logic_len: 683, memory_len: 717483 }
+[2024-11-09T19:26:31Z INFO  plonky2::util::timing] 21.3416s to prove root first
+[2024-11-09T19:26:31Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/12
+[2024-11-09T19:26:32Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 15225 cycles
+[2024-11-09T19:26:32Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:26:32Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:26:32Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 6761, cpu_len: 32768, poseidon_len: 15224, poseidon_sponge_len: 15224, logic_len: 1030, memory_len: 681978 }
+[2024-11-09T19:26:53Z INFO  plonky2::util::timing] 22.0188s to prove root second
+[2024-11-09T19:26:54Z INFO  plonky2::util::timing] 1.4588s to prove aggression
+[2024-11-09T19:26:56Z INFO  plonky2::util::timing] 1.4724s to prove nested aggression
+[2024-11-09T19:26:56Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/13
+[2024-11-09T19:26:57Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 11097 cycles
+[2024-11-09T19:26:57Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:26:57Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:26:57Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8785, cpu_len: 32768, poseidon_len: 11096, poseidon_sponge_len: 11096, logic_len: 1928, memory_len: 537171 }
+[2024-11-09T19:27:17Z INFO  plonky2::util::timing] 21.1345s to prove root first
+[2024-11-09T19:27:17Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/14
+[2024-11-09T19:27:18Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 4131 cycles
+[2024-11-09T19:27:18Z INFO  zkm_prover::generation] CPU halted after 32381 cycles
+[2024-11-09T19:27:18Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:27:18Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 12192, cpu_len: 32768, poseidon_len: 4130, poseidon_sponge_len: 4130, logic_len: 2940, memory_len: 294527 }
+[2024-11-09T19:27:34Z INFO  plonky2::util::timing] 17.3598s to prove root second
+[2024-11-09T19:27:36Z INFO  plonky2::util::timing] 1.4273s to prove aggression
+[2024-11-09T19:27:37Z INFO  plonky2::util::timing] 1.3759s to prove nested aggression
+[2024-11-09T19:27:37Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/15
+[2024-11-09T19:27:38Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 11484 cycles
+[2024-11-09T19:27:38Z INFO  zkm_prover::generation] CPU halted after 32228 cycles
+[2024-11-09T19:27:38Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:27:38Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8764, cpu_len: 32768, poseidon_len: 11483, poseidon_sponge_len: 11483, logic_len: 1713, memory_len: 551696 }
+[2024-11-09T19:27:59Z INFO  plonky2::util::timing] 21.3420s to prove root first
+[2024-11-09T19:27:59Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/16
+[2024-11-09T19:27:59Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 12129 cycles
+[2024-11-09T19:27:59Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:27:59Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:27:59Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8259, cpu_len: 32768, poseidon_len: 12128, poseidon_sponge_len: 12128, logic_len: 1577, memory_len: 572610 }
+[2024-11-09T19:28:20Z INFO  plonky2::util::timing] 21.4271s to prove root second
+[2024-11-09T19:28:21Z INFO  plonky2::util::timing] 1.5127s to prove aggression
+[2024-11-09T19:28:23Z INFO  plonky2::util::timing] 1.4236s to prove nested aggression
+[2024-11-09T19:28:23Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/17
+[2024-11-09T19:28:24Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 13419 cycles
+[2024-11-09T19:28:24Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:28:24Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:28:24Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 7125, cpu_len: 32768, poseidon_len: 13418, poseidon_sponge_len: 13418, logic_len: 932, memory_len: 617648 }
+[2024-11-09T19:28:44Z INFO  plonky2::util::timing] 20.7630s to prove root first
+[2024-11-09T19:28:44Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/18
+[2024-11-09T19:28:45Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 10065 cycles
+[2024-11-09T19:28:45Z INFO  zkm_prover::generation] CPU halted after 32381 cycles
+[2024-11-09T19:28:45Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:28:45Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8638, cpu_len: 32768, poseidon_len: 10064, poseidon_sponge_len: 10064, logic_len: 1074, memory_len: 504252 }
+[2024-11-09T19:29:01Z INFO  plonky2::util::timing] 17.4097s to prove root second
+[2024-11-09T19:29:03Z INFO  plonky2::util::timing] 1.4708s to prove aggression
+[2024-11-09T19:29:04Z INFO  plonky2::util::timing] 1.3758s to prove nested aggression
+[2024-11-09T19:29:04Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/19
+[2024-11-09T19:29:05Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 13290 cycles
+[2024-11-09T19:29:05Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:29:05Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:29:05Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 7211, cpu_len: 32768, poseidon_len: 13289, poseidon_sponge_len: 13289, logic_len: 1086, memory_len: 614402 }
+[2024-11-09T19:29:25Z INFO  plonky2::util::timing] 20.9163s to prove root first
+[2024-11-09T19:29:25Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/20
+[2024-11-09T19:29:26Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 9291 cycles
+[2024-11-09T19:29:26Z INFO  zkm_prover::generation] CPU halted after 32222 cycles
+[2024-11-09T19:29:26Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:29:26Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8884, cpu_len: 32768, poseidon_len: 9290, poseidon_sponge_len: 9290, logic_len: 1526, memory_len: 474883 }
+[2024-11-09T19:29:42Z INFO  plonky2::util::timing] 17.0252s to prove root second
+[2024-11-09T19:29:43Z INFO  plonky2::util::timing] 1.5092s to prove aggression
+[2024-11-09T19:29:45Z INFO  plonky2::util::timing] 1.5169s to prove nested aggression
+[2024-11-09T19:29:45Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/21
+[2024-11-09T19:29:46Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 13419 cycles
+[2024-11-09T19:29:46Z INFO  zkm_prover::generation] CPU halted after 32132 cycles
+[2024-11-09T19:29:46Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:29:46Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 7571, cpu_len: 32768, poseidon_len: 13418, poseidon_sponge_len: 13418, logic_len: 896, memory_len: 619048 }
+[2024-11-09T19:30:09Z INFO  plonky2::util::timing] 23.8069s to prove root first
+[2024-11-09T19:30:09Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/22
+[2024-11-09T19:30:10Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 11484 cycles
+[2024-11-09T19:30:10Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:30:10Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:30:10Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8775, cpu_len: 32768, poseidon_len: 11483, poseidon_sponge_len: 11483, logic_len: 905, memory_len: 551394 }
+[2024-11-09T19:30:32Z INFO  plonky2::util::timing] 22.9959s to prove root second
+[2024-11-09T19:30:33Z INFO  plonky2::util::timing] 1.4323s to prove aggression
+[2024-11-09T19:30:35Z INFO  plonky2::util::timing] 1.4627s to prove nested aggression
+[2024-11-09T19:30:35Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/23
+[2024-11-09T19:30:36Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 13806 cycles
+[2024-11-09T19:30:36Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:30:36Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:30:36Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 7359, cpu_len: 32768, poseidon_len: 13805, poseidon_sponge_len: 13805, logic_len: 860, memory_len: 632042 }
+[2024-11-09T19:30:56Z INFO  plonky2::util::timing] 21.2585s to prove root first
+[2024-11-09T19:30:56Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/24
+[2024-11-09T19:30:57Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 12645 cycles
+[2024-11-09T19:30:57Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:30:57Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:30:57Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 8224, cpu_len: 32768, poseidon_len: 12644, poseidon_sponge_len: 12644, logic_len: 946, memory_len: 593178 }
+[2024-11-09T19:31:19Z INFO  plonky2::util::timing] 22.9601s to prove root second
+[2024-11-09T19:31:20Z INFO  plonky2::util::timing] 1.4503s to prove aggression
+[2024-11-09T19:31:22Z INFO  plonky2::util::timing] 1.3593s to prove nested aggression
+[2024-11-09T19:31:22Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/25
+[2024-11-09T19:31:23Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 9807 cycles
+[2024-11-09T19:31:23Z INFO  zkm_prover::generation] CPU halted after 32381 cycles
+[2024-11-09T19:31:23Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:31:23Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 9083, cpu_len: 32768, poseidon_len: 9806, poseidon_sponge_len: 9806, logic_len: 1029, memory_len: 495993 }
+[2024-11-09T19:31:38Z INFO  plonky2::util::timing] 16.7026s to prove root first
+[2024-11-09T19:31:38Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/26
+[2024-11-09T19:31:40Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 9936 cycles
+[2024-11-09T19:31:40Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:31:40Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:31:40Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 10441, cpu_len: 32768, poseidon_len: 9935, poseidon_sponge_len: 9935, logic_len: 771, memory_len: 499590 }
+[2024-11-09T19:31:56Z INFO  plonky2::util::timing] 17.7222s to prove root second
+[2024-11-09T19:31:58Z INFO  plonky2::util::timing] 1.4556s to prove aggression
+[2024-11-09T19:31:59Z INFO  plonky2::util::timing] 1.3618s to prove nested aggression
+[2024-11-09T19:31:59Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/27
+[2024-11-09T19:32:00Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 9807 cycles
+[2024-11-09T19:32:00Z INFO  zkm_prover::generation] CPU halted after 32123 cycles
+[2024-11-09T19:32:00Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:32:00Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 9433, cpu_len: 32768, poseidon_len: 9806, poseidon_sponge_len: 9806, logic_len: 1050, memory_len: 493964 }
+[2024-11-09T19:32:15Z INFO  plonky2::util::timing] 16.1070s to prove root first
+[2024-11-09T19:32:15Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/28
+[2024-11-09T19:32:16Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 5163 cycles
+[2024-11-09T19:32:16Z INFO  zkm_prover::generation] CPU halted after 32381 cycles
+[2024-11-09T19:32:16Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:32:16Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 11820, cpu_len: 32768, poseidon_len: 5162, poseidon_sponge_len: 5162, logic_len: 1275, memory_len: 333732 }
+[2024-11-09T19:32:31Z INFO  plonky2::util::timing] 16.1528s to prove root second
+[2024-11-09T19:32:33Z INFO  plonky2::util::timing] 1.3518s to prove aggression
+[2024-11-09T19:32:34Z INFO  plonky2::util::timing] 1.3691s to prove nested aggression
+[2024-11-09T19:32:34Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/29
+[2024-11-09T19:32:35Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 11097 cycles
+[2024-11-09T19:32:35Z INFO  zkm_prover::generation] CPU halted after 32381 cycles
+[2024-11-09T19:32:35Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:32:35Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 9250, cpu_len: 32768, poseidon_len: 11096, poseidon_sponge_len: 11096, logic_len: 984, memory_len: 540755 }
+[2024-11-09T19:32:54Z INFO  plonky2::util::timing] 19.5319s to prove root first
+[2024-11-09T19:32:54Z INFO  zkm_sdk::local::util] Process segment /tmp/4267671a-52e6-4ebb-85fa-9b7bd3eca95f/input/segments/30
+[2024-11-09T19:32:55Z INFO  zkm_prover::cpu::bootstrap_kernel] Bootstrapping took 16515 cycles
+[2024-11-09T19:32:55Z INFO  zkm_prover::generation] CPU halted after 29056 cycles
+[2024-11-09T19:32:55Z INFO  zkm_prover::generation] CPU trace padded to 32768 cycles
+[2024-11-09T19:32:55Z INFO  zkm_prover::generation] Trace lengths (before padding): TraceCheckpoint { arithmetic_len: 4944, cpu_len: 32768, poseidon_len: 16514, poseidon_sponge_len: 16514, logic_len: 619, memory_len: 712622 }
+[2024-11-09T19:33:16Z INFO  plonky2::util::timing] 22.2725s to prove root second
+[2024-11-09T19:33:17Z INFO  plonky2::util::timing] 1.3900s to prove aggression
+[2024-11-09T19:33:19Z INFO  plonky2::util::timing] 1.3521s to prove nested aggression
+[2024-11-09T19:33:20Z INFO  zkm_sdk::local::util] proof size: 412878
+[2024-11-09T19:33:25Z INFO  zkm_sdk::local::util] build finish
+[2024-11-09T19:33:31Z INFO  plonky2x::backend::wrapper::wrap] Succesfully wrote common circuit data to common_circuit_data.json
+[2024-11-09T19:33:31Z INFO  plonky2x::backend::wrapper::wrap] Succesfully wrote verifier data to verifier_only_circuit_data.json
+[2024-11-09T19:33:31Z INFO  plonky2x::backend::wrapper::wrap] Succesfully wrote proof to proof_with_public_inputs.json
+[2024-11-09T19:33:31Z INFO  plonky2::util::timing] 687.3022s to prove total time
+[90m02:33:44[0m [32mINF[0m compiling circuit
+[90m02:33:44[0m [32mINF[0m parsed circuit inputs [36mnbPublic=[0m1 [36mnbSecret=[0m11182
+[90m02:33:57[0m [32mINF[0m building constraint builder [36mnbConstraints=[0m5815132
+Generating witness 2024-11-10 02:42:09.94058 +0700 +07 m=+1205.704885876
+frontend.NewWitness cost time: 47 ms
+Creating proof 2024-11-10 02:42:09.988244 +0700 +07 m=+1205.752548876
+[90m02:42:12[0m [33mDBG[0m constraint system solver done [36mnbConstraints=[0m5815132 [36mtook=[0m2898.286625
+[90m02:42:29[0m [33mDBG[0m prover done [36macceleration=[0mnone [36mbackend=[0mgroth16 [36mcurve=[0mbn254 [36mnbConstraints=[0m5815132 [36mtook=[0m16936.930959
+groth16.Prove cost time: 19835 ms
+Verifying proof 2024-11-10 02:42:29.824391 +0700 +07 m=+1225.588470251
+[90m02:42:29[0m [33mDBG[0m verifier done [36mbackend=[0mgroth16 [36mcurve=[0mbn254 [36mtook=[0m1.827417
+groth16.Verify cost time: 1 ms
+before len of publicWitness:1
+after len of publicWitness:2
+[90m02:42:29[0m [33mDBG[0m verifier done [36mbackend=[0mgroth16 [36mcurve=[0mbn254 [36mtook=[0m1.710458
+[2024-11-09T19:42:29Z INFO  zkm_prove] Proof: successfully written 1267 bytes.
+[2024-11-09T19:42:29Z INFO  zkm_prove]  hash(bincode(pulic_input)): [83, 49, 135, 214, 85, 198, 206, 187, 126, 214, 164, 252, 4, 173, 244, 54, 117, 148, 168, 18, 16, 205, 204, 141, 121, 119, 17, 93, 157, 70, 136, 179] 
+[2024-11-09T19:42:29Z INFO  zkm_prove] Contract: successfully written 12961 bytes.
+[2024-11-09T19:42:29Z INFO  zkm_prove] Generating proof successfully .The proof file and verifier contract are in the the path /Users/pavel/Documents/code/hackathon/zkm-playground/zkm-project-template/host-program/../contracts/{verifier,src} .
+[2024-11-09T19:42:29Z INFO  zkm_prove] Elapsed time: 1225 secs
